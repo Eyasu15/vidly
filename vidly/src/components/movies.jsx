@@ -5,6 +5,7 @@ import Pagination from "./pagination";
 import { paginate } from "./utils/paginate";
 import Genres from "./genres";
 import { genres, getGenres } from "./services/fakeGenreService";
+import { getGenre } from "./utils/getGenre";
 
 class Movies extends Component {
   state = {
@@ -12,6 +13,7 @@ class Movies extends Component {
     pageSize: 4,
     activePage: 1,
     genres: genres,
+    activeGenre: "All Genres",
   };
 
   handleDelete = (movie) => {
@@ -32,17 +34,25 @@ class Movies extends Component {
     this.setState({ activePage: pageNumber });
   };
 
+  handleGenreChange = (genre) => {
+    this.setState({ activeGenre: genre.name });
+  };
+
   render() {
     let { length: count } = this.state.movies;
-    let { pageSize, activePage, movies: allMovies } = this.state;
+    let { pageSize, activePage, movies: allMovies, activeGenre } = this.state;
     let movies = paginate(allMovies, pageSize, activePage);
-    console.log(movies);
+    if (activeGenre !== "All Genres") movies = getGenre(allMovies, activeGenre);
     if (count < 1) return <p>There are no movies in the database</p>;
 
     return (
       <div className="row">
         <div className="col-3">
-          <Genres genres={getGenres()} />
+          <Genres
+            genres={getGenres()}
+            activeGenre={this.state.activeGenre}
+            onGenreChange={this.handleGenreChange}
+          />
         </div>
         <div className="col">
           <p>Showing {count} movies</p>

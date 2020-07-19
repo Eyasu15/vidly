@@ -2,17 +2,18 @@ import React from "react";
 
 const Genres = (props) => {
   //active genre, array of genres, handleSelection
-  let { genres } = props;
+  let { genres, activeGenre, onGenreChange } = props;
   return (
     <div class="list-group">
       {genres.map((g) => (
         <a
-          key={g.id}
+          key={g.name}
           class={
-            g.active
+            g.name === activeGenre
               ? "list-group-item list-group-item-action active"
               : "list-group-item list-group-item-action"
           }
+          onClick={() => onGenreChange(g)}
         >
           {g.name}
         </a>
