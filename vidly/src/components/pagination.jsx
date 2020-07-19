@@ -3,19 +3,27 @@ import _ from "lodash";
 class Pagination extends Component {
   state = {};
   render() {
-    let { pageSize, itemsCount, onPageChange } = this.props;
+    let { pageSize, itemsCount, onPageChange, activePage } = this.props;
     let pages = Math.ceil(itemsCount / pageSize);
     pages = _.range(1, pages + 1);
-    console.log(pages);
+    if (pages <= 1) return null;
     return (
       <nav aria-label="Page navigation example">
         <ul className="pagination">
-          {}
-          <li className="page-item">
-            <a className="page-link" href="#" onClick={() => onPageChange(1)}>
-              1
-            </a>
-          </li>
+          {pages.map((page) => (
+            <li
+              key={page}
+              className={page === activePage ? "page-item active" : "page-item"}
+            >
+              <a
+                className="page-link"
+                href="#"
+                onClick={() => onPageChange(page)}
+              >
+                {page}
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
     );
