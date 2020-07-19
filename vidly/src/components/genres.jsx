@@ -1,19 +1,23 @@
 import React from "react";
-import { genres } from "./services/fakeGenreService";
 
-const Genres = () => {
+const Genres = (props) => {
   //active genre, array of genres, handleSelection
+  let { genres } = props;
   return (
-    <ul class="list-group">
-      {genres.map((g) => {
-        <li
+    <div class="list-group">
+      {genres.map((g) => (
+        <a
           key={g.id}
-          class={g.active ? "list-group-item active" : "list-group-item"}
+          class={
+            g.active
+              ? "list-group-item list-group-item-action active"
+              : "list-group-item list-group-item-action"
+          }
         >
           {g.name}
-        </li>;
-      })}
-    </ul>
+        </a>
+      ))}
+    </div>
   );
 };
 
