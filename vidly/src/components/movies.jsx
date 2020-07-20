@@ -4,17 +4,21 @@ import Like from "./common/like";
 import Pagination from "./pagination";
 import { paginate } from "./utils/paginate";
 import Genres from "./genres";
-import { genres, getGenres } from "./services/fakeGenreService";
+import { getGenres } from "./services/fakeGenreService";
 import { getGenre } from "./utils/getGenre";
 
 class Movies extends Component {
   state = {
-    movies: getMovies(),
+    movies: [],
     pageSize: 4,
     activePage: 1,
-    genres: genres,
+    genres: [],
     activeGenre: "All Genres",
   };
+
+  componentDidMount() {
+    this.setState({ movies: getMovies(), genres: getGenres() });
+  }
 
   handleDelete = (movie) => {
     let movies = [...this.state.movies];
@@ -42,7 +46,11 @@ class Movies extends Component {
     let { length: count } = this.state.movies;
     let { pageSize, activePage, movies: allMovies, activeGenre } = this.state;
     let movies = paginate(allMovies, pageSize, activePage);
-    if (activeGenre !== "All Genres") movies = getGenre(allMovies, activeGenre);
+
+    if (activeGenre !== "All Genres") {
+      movies = getGenre(allMovies, activeGenre);
+      count = movies.length;
+    }
     if (count < 1) return <p>There are no movies in the database</p>;
 
     return (
