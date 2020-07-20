@@ -1,8 +1,18 @@
 import React, { Component } from "react";
 import Like from "./common/like";
 import { render } from "@testing-library/react";
+import TableHeader from "./common/tableHeader";
 
 class MoviesTable extends Component {
+  columns = [
+    { label: "Title", path: "title" },
+    { label: "Genre", path: "genre.name" },
+    { label: "Stock", path: "numberInStock" },
+    { label: "Rate", path: "dailyRentalRate" },
+    { key: "like" },
+    { key: "delete" },
+  ];
+
   handleSort = (path) => {
     let sortColumn = { ...this.props.sortColumn };
 
@@ -16,28 +26,14 @@ class MoviesTable extends Component {
   };
 
   render() {
-    let { movies, onLike, onDelete, onSort } = this.props;
-
+    let { movies, onLike, onDelete, sortColumn } = this.props;
     return (
       <table className="table">
-        <thead>
-          <tr>
-            <th onClick={() => this.handleSort("title")} scope="col">
-              Title
-            </th>
-            <th onClick={() => this.handleSort("genre.name")} scope="col">
-              Genre
-            </th>
-            <th onClick={() => this.handleSort("numberInStock")} scope="col">
-              Stock
-            </th>
-            <th onClick={() => this.handleSort("dailyRentalRate")} scope="col">
-              Rate
-            </th>
-            <th />
-            <th />
-          </tr>
-        </thead>
+        <TableHeader
+          columns={this.columns}
+          sortColumn={sortColumn}
+          onSort={this.handleSort}
+        />
         <tbody>
           {movies.map((m) => (
             <tr key={m._id}>

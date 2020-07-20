@@ -40,7 +40,7 @@ class Movies extends Component {
   };
 
   handleGenreChange = (genre) => {
-    this.setState({ activeGenre: genre.name });
+    this.setState({ activeGenre: genre.name, activePage: 1 });
   };
 
   handleSort = (sortColumn) => {
