@@ -1,7 +1,6 @@
 import React from "react";
 
 const Genres = (props) => {
-  //active genre, array of genres, handleSelection
   let { genres, activeGenre, onGenreChange } = props;
   return (
     <div className="list-group">
