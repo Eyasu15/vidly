@@ -10,8 +10,21 @@ class MoviesTable extends Component {
     { label: "Genre", path: "genre.name" },
     { label: "Stock", path: "numberInStock" },
     { label: "Rate", path: "dailyRentalRate" },
-    { key: "like" },
-    { key: "delete" },
+    {
+      key: "like",
+      content: (movie) => <Like movie={movie} onLike={this.props.onLike} />,
+    },
+    {
+      key: "delete",
+      content: (movie) => (
+        <button
+          className="btn btn-danger"
+          onClick={() => this.props.onDelete(movie)}
+        >
+          Delete
+        </button>
+      ),
+    },
   ];
 
   handleSort = (path) => {
@@ -26,9 +39,17 @@ class MoviesTable extends Component {
     this.props.onSort(sortColumn);
   };
 
+  // <td>
+  //   <Like movie={m} onLike={onLike} />
+  // </td>
+  // <td>
+  // <button className="btn btn-danger" onClick={() => onDelete(m)}>
+  //   Delete
+  // </button>
+  // </td>
+
   render() {
     let { movies, onLike, onDelete, sortColumn } = this.props;
-    console.log(movies[0].genre.name);
     return (
       <table className="table">
         <TableHeader
