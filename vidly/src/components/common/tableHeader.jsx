@@ -5,6 +5,15 @@ class TableHeader extends Component {
   //sortColumn: {path, order}
   //onSort: function()
 
+  sortIcon = (path, sortColumn) => {
+    if (sortColumn.path === path) {
+      const c =
+        sortColumn.order === "asc" ? "fa fa-sort-asc" : "fa fa-sort-desc";
+      return <i class={c} aria-hidden="true"></i>;
+    }
+    return null;
+  };
+
   render() {
     let { columns, sortColumn, onSort } = this.props;
     return (
@@ -17,6 +26,7 @@ class TableHeader extends Component {
               scope="col"
             >
               {c.label}
+              {this.sortIcon(c.path, sortColumn)}
             </th>
           ))}
         </tr>
