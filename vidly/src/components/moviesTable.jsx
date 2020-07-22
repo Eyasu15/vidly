@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import Like from "./common/like";
 import { render } from "@testing-library/react";
-import TableHeader from "./common/tableHeader";
-import TableBody from "./common/tableBody";
+import Table from "./common/table";
 
 class MoviesTable extends Component {
   columns = [
@@ -27,29 +26,16 @@ class MoviesTable extends Component {
     },
   ];
 
-  handleSort = (path) => {
-    let sortColumn = { ...this.props.sortColumn };
-
-    if (sortColumn.path === path)
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    else {
-      sortColumn.path = path;
-      sortColumn.order = "asc";
-    }
-    this.props.onSort(sortColumn);
-  };
-
   render() {
-    let { movies, onLike, onDelete, sortColumn } = this.props;
+    let { movies, sortColumn, onSort } = this.props;
+
     return (
-      <table className="table">
-        <TableHeader
-          columns={this.columns}
-          sortColumn={sortColumn}
-          onSort={this.handleSort}
-        />
-        <TableBody columns={this.columns} items={movies} />
-      </table>
+      <Table
+        columns={this.columns}
+        sortColumn={sortColumn}
+        items={movies}
+        onSort={onSort}
+      />
     );
   }
 }

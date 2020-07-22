@@ -22,6 +22,7 @@ class TableHeader extends Component {
           {columns.map((c) => (
             <th
               key={c.path || c.key}
+              className="clickable"
               onClick={() => onSort(c.path)}
               scope="col"
             >
