@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Like from "./common/like";
 import { render } from "@testing-library/react";
 import TableHeader from "./common/tableHeader";
+import TableBody from "./common/tableBody";
 
 class MoviesTable extends Component {
   columns = [
@@ -27,6 +28,7 @@ class MoviesTable extends Component {
 
   render() {
     let { movies, onLike, onDelete, sortColumn } = this.props;
+    console.log(movies[0].genre.name);
     return (
       <table className="table">
         <TableHeader
@@ -34,24 +36,7 @@ class MoviesTable extends Component {
           sortColumn={sortColumn}
           onSort={this.handleSort}
         />
-        <tbody>
-          {movies.map((m) => (
-            <tr key={m._id}>
-              <th scope="row">{m.title}</th>
-              <td>{m.genre.name}</td>
-              <td>{m.numberInStock}</td>
-              <td>{m.dailyRentalRate}</td>
-              <td>
-                <Like movie={m} onLike={onLike} />
-              </td>
-              <td>
-                <button className="btn btn-danger" onClick={() => onDelete(m)}>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+        <TableBody columns={this.columns} items={movies} />
       </table>
     );
   }
