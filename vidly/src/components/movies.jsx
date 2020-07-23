@@ -7,7 +7,6 @@ import { getGenres } from "./services/fakeGenreService";
 import MoviesTable from "./moviesTable";
 import { Route } from "react-router-dom";
 import _ from "lodash";
-import MovieForm from "./movieForm";
 
 class Movies extends Component {
   state = {
@@ -88,7 +87,6 @@ class Movies extends Component {
         </div>
         <div className="col">
           <p>Showing {totalCount} movies</p>
-          <Route path="/movies/:id" component={MovieForm} />
           <MoviesTable
             movies={movies}
             sortColumn={sortColumn}
