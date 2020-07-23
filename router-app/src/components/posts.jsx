@@ -1,6 +1,9 @@
 import React from "react";
+import queryString from "query-string";
+const Posts = ({ match, location }) => {
+  const result = queryString.parse(location.search);
+  console.log(result);
 
-const Posts = ({ match }) => {
   return (
     <div>
       <h1>Posts</h1>
