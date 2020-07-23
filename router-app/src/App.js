@@ -15,7 +15,10 @@ class App extends Component {
       <div>
         <NavBar />
         <Switch>
-          <Route path="/products/:id" component={ProductDetails} />
+          <Route
+            path="/products/:id"
+            render={(props) => <ProductDetails {...props} />}
+          />
           <Route path="/products" component={Products} />
           <Route path="/posts" component={Posts} />
           <Route path="/admin" component={Dashboard} />
