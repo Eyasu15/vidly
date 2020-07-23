@@ -5,6 +5,8 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Rentals from "./components/rentals";
 import Customers from "./components/customers";
 import NotFound from "./components/notFound";
+import MovieForm from "./components/movieForm";
+
 class App extends Component {
   state = {};
   render() {
@@ -13,6 +15,7 @@ class App extends Component {
         <Navbar />
         <main className="container">
           <Switch>
+            <Route path="/movies/:id" component={MovieForm} />
             <Route path="/movies" component={Movies} />
             <Route path="/not-found" component={NotFound} />
             <Route path="/rentals" component={Rentals} />

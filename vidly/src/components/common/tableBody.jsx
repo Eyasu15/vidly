@@ -5,7 +5,7 @@ import _ from "lodash";
 class TableBody extends Component {
   renderCell = (item, column) => {
     if (column.path === "title")
-      return <Link to="/item">{item[column.path]}</Link>;
+      return <Link to={`/movies/` + item._id}>{item[column.path]}</Link>;
     return column.content ? column.content(item) : _.get(item, column.path);
   };
 
