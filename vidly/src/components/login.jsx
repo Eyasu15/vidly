@@ -21,12 +21,9 @@ class Login extends Component {
 
     if (!error) return;
     const errors = {};
-    for (let i = 0; i < error.details.length; i++) {
-      const element = error.details[i];
-      errors = { [element.path]: element.message };
-      console.log(errors);
-    }
-    console.log(errors);
+    for (let element of error.details)
+      errors[element.path[0]] = element.message;
+
     return Object.keys(errors).length === 0 ? null : errors;
   };
 
@@ -40,6 +37,7 @@ class Login extends Component {
 
     console.log("submitted");
   };
+
   showError = () => {
     const { errors } = this.state;
     return errors ? errors.username : null;

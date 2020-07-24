@@ -2,14 +2,24 @@ import React, { Component } from "react";
 import { NavLink, Link } from "react-router-dom";
 
 class NavBar extends Component {
-  state = {};
+  state = {
+    showMenu: false,
+  };
+  toggleMenu = () => {
+    this.setState({ showMenu: !this.state.showMenu });
+  };
+
   render() {
+    let show = this.state.showMenu ? "show" : "";
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link className="navbar-brand" to="/movies">
           Vidly
         </Link>
-        <div id="navbarNavDropdown">
+        <button className="navbar-toggler" onClick={this.toggleMenu}>
+          <span className="navbar-toggler-icon" />
+        </button>
+        <div className={"collapse navbar-collapse " + show}>
           <NavLink to="/movies" className="nav-item nav-link">
             Movies
           </NavLink>
