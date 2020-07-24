@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Input from "./common/input";
+import Joi from "joi-browser";
+import _ from "lodash";
 
 class Login extends Component {
   state = {
@@ -7,14 +9,24 @@ class Login extends Component {
     errors: {},
   };
 
-  validate = () => {
-    let errors = {};
-    const { account } = this.state;
-    if (account.username.trim() == "")
-      errors.username = "username is required.";
-    if (account.password.trim() == "")
-      errors.password = "password is required.";
+  schema = {
+    username: Joi.string().required().label("Username"),
+    password: Joi.string().required().label("Password"),
+  };
 
+  validate = () => {
+    const { account } = this.state;
+    const options = { abortEarly: false };
+    const { error } = Joi.validate(this.schema, account, options);
+
+    if (!error) return;
+    const errors = {};
+    for (let i = 0; i < error.details.length; i++) {
+      const element = error.details[i];
+      errors = { [element.path]: element.message };
+      console.log(errors);
+    }
+    console.log(errors);
     return Object.keys(errors).length === 0 ? null : errors;
   };
 
@@ -23,7 +35,6 @@ class Login extends Component {
 
     const errors = this.validate();
     this.setState({ errors: errors || {} });
-    console.log(errors);
 
     if (errors) return;
 
