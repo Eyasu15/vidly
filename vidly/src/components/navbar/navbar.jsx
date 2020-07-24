@@ -9,18 +9,7 @@ class NavBar extends Component {
         <Link className="navbar-brand" to="/movies">
           Vidly
         </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          dataToggle="collapse"
-          dataTarget="#navbarNavDropdown"
-          ariaControls="navbarNavDropdown"
-          ariaExpanded="false"
-          ariaLabel="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNavDropdown">
+        <div id="navbarNavDropdown">
           <NavLink to="/movies" className="nav-item nav-link">
             Movies
           </NavLink>
@@ -29,6 +18,9 @@ class NavBar extends Component {
           </NavLink>
           <NavLink to="/rentals" className="nav-item nav-link">
             Rentals
+          </NavLink>
+          <NavLink to="/login" className="nav-item nav-link">
+            Login
           </NavLink>
         </div>
       </nav>
