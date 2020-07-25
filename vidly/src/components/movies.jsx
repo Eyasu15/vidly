@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { getMovies } from "./services/fakeMovieService";
+import { getMovies, saveMovie } from "./services/fakeMovieService";
 import Pagination from "./pagination";
 import { paginate } from "./utils/paginate";
 import Genres from "./genres";
 import { getGenres } from "./services/fakeGenreService";
 import MoviesTable from "./moviesTable";
-import { Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import _ from "lodash";
 
 class Movies extends Component {
@@ -26,6 +26,10 @@ class Movies extends Component {
     let movies = [...this.state.movies];
     movies = movies.filter((m) => m._id !== movie._id);
     this.setState({ movies });
+  };
+
+  handleSave = (movie) => {
+    saveMovie(movie);
   };
 
   handleLike = (movie) => {
@@ -86,6 +90,13 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
+          <Link
+            to="/movies/new"
+            className="btn btn-primary mb-3"
+            onSave={this.handleSave}
+          >
+            New Movie
+          </Link>
           <p>Showing {totalCount} movies</p>
           <MoviesTable
             movies={movies}
