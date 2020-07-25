@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import Input from "./common/input";
+import Form from "./common/form";
 import Joi from "joi-browser";
 import _ from "lodash";
 
-class Login extends Component {
+class Login extends Form {
   state = {
-    account: { username: "", password: "" },
+    data: { username: "", password: "" },
     errors: {},
   };
 
@@ -14,55 +15,18 @@ class Login extends Component {
     password: Joi.string().required().label("Password"),
   };
 
-  validate = () => {
-    const options = { abortEarly: false };
-    const { error } = Joi.validate(this.state.account, this.schema, options);
-
-    if (!error) return;
-
-    const errors = {};
-    for (let element of error.details)
-      errors[element.path[0]] = element.message;
-
-    return Object.keys(errors).length === 0 ? null : errors;
-  };
-
-  validateProperty = (name, value) => {
-    const obj = { [name]: value };
-    const schema = { [name]: this.schema[name] };
-    const { error } = Joi.validate(obj, schema);
-    return error ? error.details[0].message : null;
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-
-    const errors = this.validate();
-    this.setState({ errors: errors || {} });
-
-    if (errors) return;
-
-    console.log("submitted");
-  };
-
-  handleChange = ({ currentTarget: input }) => {
-    const errors = { ...this.state.errors };
-    const errorMessage = this.validateProperty(input.name, input.value);
-    errors[input.name] = errorMessage;
-
-    const account = { ...this.state.account };
-    account[input.name] = input.value;
-    this.setState({ account, errors });
+  doSubmit = () => {
+    //handle submission
   };
 
   render() {
-    let { account, errors } = this.state;
+    let { data, errors } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
         <Input
           name="username"
           type="text"
-          value={account.username}
+          value={data.username}
           onChange={this.handleChange}
           label="Username"
           errors={errors.username}
@@ -71,13 +35,15 @@ class Login extends Component {
         <Input
           name="password"
           type="password"
-          value={account.password}
+          value={data.password}
           onChange={this.handleChange}
           label="Password"
           errors={errors.password}
         />
 
-        <button className="btn btn-primary">Submit</button>
+        <button className="btn btn-primary" disabled={this.validate()}>
+          Submit
+        </button>
       </form>
     );
   }
