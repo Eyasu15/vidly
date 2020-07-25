@@ -15,16 +15,21 @@ class Login extends Component {
   };
 
   validate = () => {
-    const { account } = this.state;
     const options = { abortEarly: false };
-    const { error } = Joi.validate(this.schema, account, options);
+    const { error } = Joi.validate(this.state.account, this.schema, options);
 
     if (!error) return;
+
     const errors = {};
     for (let element of error.details)
       errors[element.path[0]] = element.message;
 
     return Object.keys(errors).length === 0 ? null : errors;
+  };
+  validateProperty = (name, value) => {
+    const schema = { [name]: this.schema[name] };
+    const { error } = Joi.validate(this.state.account[name], schema);
+    return error ? error[0] : null;
   };
 
   handleSubmit = (e) => {
@@ -38,12 +43,9 @@ class Login extends Component {
     console.log("submitted");
   };
 
-  showError = () => {
-    const { errors } = this.state;
-    return errors ? errors.username : null;
-  };
-
   handleChange = ({ currentTarget: input }) => {
+    const error = this.validateProperty(input.name, input.value);
+    console.log(error);
     const account = { ...this.state.account };
     account[input.name] = input.value;
     this.setState({ account });
