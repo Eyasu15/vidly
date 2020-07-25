@@ -28,10 +28,6 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
-  handleSave = (movie) => {
-    saveMovie(movie);
-  };
-
   handleLike = (movie) => {
     const movies = [...this.state.movies];
     const index = movies.indexOf(movie);
@@ -90,11 +86,7 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
-          <Link
-            to="/movies/new"
-            className="btn btn-primary mb-3"
-            onSave={this.handleSave}
-          >
+          <Link to="/movies/new" className="btn btn-primary mb-3">
             New Movie
           </Link>
           <p>Showing {totalCount} movies</p>

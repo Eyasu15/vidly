@@ -40,7 +40,8 @@ class Form extends Component {
   handleChange = ({ currentTarget: input }) => {
     const errors = { ...this.state.errors };
     const errorMessage = this.validateProperty(input.name, input.value);
-    errors[input.name] = errorMessage;
+    if (!errorMessage) delete errors[input.name];
+    else errors[input.name] = errorMessage;
 
     const data = { ...this.state.data };
     data[input.name] = input.value;
@@ -62,6 +63,7 @@ class Form extends Component {
         <SelectInput
           name={name}
           label={label}
+          value={data[name]}
           options={options}
           onChange={this.handleChange}
           errors={errors[name]}
