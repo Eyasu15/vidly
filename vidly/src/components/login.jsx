@@ -26,10 +26,12 @@ class Login extends Component {
 
     return Object.keys(errors).length === 0 ? null : errors;
   };
+
   validateProperty = (name, value) => {
+    const obj = { [name]: value };
     const schema = { [name]: this.schema[name] };
-    const { error } = Joi.validate(this.state.account[name], schema);
-    return error ? error[0] : null;
+    const { error } = Joi.validate(obj, schema);
+    return error ? error.details[0].message : null;
   };
 
   handleSubmit = (e) => {
@@ -44,11 +46,13 @@ class Login extends Component {
   };
 
   handleChange = ({ currentTarget: input }) => {
-    const error = this.validateProperty(input.name, input.value);
-    console.log(error);
+    const errors = { ...this.state.errors };
+    const errorMessage = this.validateProperty(input.name, input.value);
+    errors[input.name] = errorMessage;
+
     const account = { ...this.state.account };
     account[input.name] = input.value;
-    this.setState({ account });
+    this.setState({ account, errors });
   };
 
   render() {
