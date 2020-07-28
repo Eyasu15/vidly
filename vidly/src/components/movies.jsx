@@ -6,6 +6,7 @@ import Genres from "./genres";
 import { getGenres } from "./services/fakeGenreService";
 import MoviesTable from "./moviesTable";
 import { Link } from "react-router-dom";
+import Search from "./common/search";
 import _ from "lodash";
 
 class Movies extends Component {
@@ -16,6 +17,7 @@ class Movies extends Component {
     genres: [],
     activeGenre: "All Genres",
     sortColumn: { path: "title", order: "asc" },
+    search: { active: false, value: "" },
   };
 
   componentDidMount() {
@@ -55,23 +57,37 @@ class Movies extends Component {
       movies: allMovies,
       activeGenre,
       sortColumn,
+      search,
     } = this.state;
 
-    const filtered =
-      activeGenre !== "All Genres"
-        ? allMovies.filter((movie) => movie.genre.name === activeGenre)
-        : allMovies;
-
+    let filtered;
+    if (!search.active)
+      filtered =
+        activeGenre !== "All Genres"
+          ? allMovies.filter((movie) => movie.genre.name === activeGenre)
+          : allMovies;
+    else
+      filtered = allMovies.filter((movie) =>
+        movie.title.toLowerCase().includes(search.value)
+      );
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
 
     const movies = paginate(sorted, pageSize, activePage);
-
     return { totalCount: filtered.length, data: movies };
+  };
+
+  handleSearch = ({ currentTarget: input }) => {
+    let { search, activeGenre } = this.state;
+    search.active = input.value === "" ? false : true;
+    search.value = input.value;
+    activeGenre = "All Genres";
+
+    this.setState({ search, activeGenre });
   };
 
   render() {
     let { length: count } = this.state.movies;
-    const { pageSize, activePage, sortColumn } = this.state;
+    const { pageSize, activePage, sortColumn, search } = this.state;
     if (count < 1) return <p>There are no movies in the database</p>;
 
     const { totalCount, data: movies } = this.getPagedData();
@@ -89,6 +105,7 @@ class Movies extends Component {
           <Link to="/movies/new" className="btn btn-primary mb-3">
             New Movie
           </Link>
+          <Search onChange={this.handleSearch} data={search.value} />
           <p>Showing {totalCount} movies</p>
           <MoviesTable
             movies={movies}
