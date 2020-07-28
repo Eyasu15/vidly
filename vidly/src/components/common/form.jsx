@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Input from "./input";
 import Joi from "joi-browser";
-import SelectInput from "./selectInput";
+import Select from "./select";
 
 class Form extends Component {
   state = { data: {}, errors: {} };
