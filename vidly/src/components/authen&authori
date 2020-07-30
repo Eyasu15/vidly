@@ -39,9 +39,18 @@ Registering a new User
             if(ex.respose and ex.response.status === 400) {
                 const errors = {...this.state.errors };
                 errors.username = ex.response.data;
-                this.setState({errors})
+                this.setState({errors});
             }
-
         }
     }
+
+Logging in a User
+    - Same as registering a user lets create a service.
     
+    'authService'
+
+    const apiEndpoint = apiUrl + "/auth";
+
+    export function login(email, password) {
+        return http.post(apiEndpoint, {email, password});
+    }
