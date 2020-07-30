@@ -23,3 +23,5 @@ Registering a new User
                 password : user.password
             })
         }   
+    
+    - import userService in our registerForm and use it in doSubmit.
