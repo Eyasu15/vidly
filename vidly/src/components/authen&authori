@@ -54,3 +54,12 @@ Logging in a User
     export function login(email, password) {
         return http.post(apiEndpoint, {email, password});
     }
+
+    - Import the service to loginForm and use it in doSubmit.
+
+    import login from '../authService';
+
+    doSubmit = () => {
+        const {data } = this.state;
+        await login(data.username, data.password);
+    }
