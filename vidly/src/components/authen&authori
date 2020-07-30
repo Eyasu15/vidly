@@ -7,5 +7,19 @@ Authentication and Authorization
 
 Registering a new User
     - When the register form, we've created, is submitted
-    we want to make a post call to backend.
-    - 
+    we want to make a POST call to backend.
+    - Create a file 'userService' to abstract out code.
+    in 'userService'
+
+        import httpService; 
+        import apiEndpoint;
+
+        const apiUrl = apiEndpoint;
+
+        export function register(user) {
+            return httpService.post(apiUrl+'/users', {
+                name : user.name,
+                email : user.email,
+                password : user.password
+            })
+        }   
