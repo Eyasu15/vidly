@@ -9,7 +9,8 @@ Registering a new User
     - When the register form, we've created, is submitted
     we want to make a POST call to backend.
     - Create a file 'userService' to abstract out code.
-    in 'userService'
+    
+    in 'userService':
 
         import httpService; 
         import apiEndpoint;
@@ -23,5 +24,24 @@ Registering a new User
                 password : user.password
             })
         }   
-    
+   
+   
     - import userService in our registerForm and use it in doSubmit.
+    - In case there are errors we need to catch and handle them.
+    So we should surround them with try/catch block
+    
+    in 'registerForm':
+
+    doSubmit = async () => {
+        try {
+            await userService.register(this.state.data);
+        } catch(ex) {
+            if(ex.respose and ex.response.status === 400) {
+                const errors = {...this.state.errors };
+                errors.username = ex.response.data;
+                this.setState({errors})
+            }
+
+        }
+    }
+    
