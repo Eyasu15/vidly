@@ -1,10 +1,8 @@
 import React from "react";
 import Form from "./common/form";
-import Joi, { errors } from "joi-browser";
-import { saveMovie, getMovie } from "./services/fakeMovieService";
+import Joi from "joi-browser";
 import { getGenres } from "./services/fakeGenreService";
 import axios from "axios";
-import { result } from "lodash";
 
 class MovieForm extends Form {
   state = {
@@ -35,19 +33,24 @@ class MovieForm extends Form {
   };
 
   async componentDidMount() {
+    await this.populateMovie();
     const genres = getGenres();
     this.setState({ genres });
+  }
 
-    const movieId = this.props.match.params.id;
-    if (movieId === "new") return;
+  async populateMovie() {
+    try {
+      const movieId = this.props.match.params.id;
+      if (movieId === "new") return;
 
-    const { data: movie } = await axios.get(
-      "http://localhost:8080/movies" + "/" + movieId
-    );
-    console.log("movie", movie);
-    if (!movie) return this.props.history.replace("/not-found");
-
-    this.setState({ data: this.mapToViewModel(movie) });
+      const { data: movie } = await axios.get(
+        "http://localhost:8080/movies" + "/" + movieId
+      );
+      this.setState({ data: this.mapToViewModel(movie) });
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400)
+        this.props.history.replace("/not-found");
+    }
   }
 
   mapToViewModel(movie) {
