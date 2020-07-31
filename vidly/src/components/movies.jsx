@@ -23,14 +23,18 @@ class Movies extends Component {
 
   async componentDidMount() {
     const { data } = await axios.get("http://localhost:8080/movies");
-    console.log(data);
     this.setState({ movies: data, genres: getGenres() });
   }
 
-
   handleDelete = (movie) => {
     let movies = [...this.state.movies];
-    movies = movies.filter((m) => m._id !== movie._id);
+    try {
+      axios.delete("http://localhost:8080/movies/" + movie.id);
+    } catch (ex) {
+      alert(ex.message);
+    }
+
+    movies = movies.filter((m) => m.id !== movie.id);
     this.setState({ movies });
   };
 

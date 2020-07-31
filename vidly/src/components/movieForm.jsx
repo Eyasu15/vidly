@@ -4,6 +4,7 @@ import Joi, { errors } from "joi-browser";
 import { saveMovie, getMovie } from "./services/fakeMovieService";
 import { getGenres } from "./services/fakeGenreService";
 import axios from "axios";
+import { result } from "lodash";
 
 class MovieForm extends Form {
   state = {
@@ -18,7 +19,7 @@ class MovieForm extends Form {
   };
 
   schema = {
-    _id: Joi.string(),
+    id: Joi.string(),
     title: Joi.string().required().label("Title"),
     genreId: Joi.string().required().label("Genre"),
     numberInStock: Joi.number()
@@ -59,8 +60,23 @@ class MovieForm extends Form {
     };
   }
 
-  doSubmit = () => {
-    saveMovie(this.state.data);
+  doSubmit = async () => {
+    const { title, genreId, numberInStock, dailyRentalRate } = {
+      ...this.state.data,
+    };
+    const genreArray = this.state.genres.filter((g) => g.id === genreId);
+    const genre = { id: genreId, name: genreArray[0].name };
+    const movie = { title, genre, numberInStock, dailyRentalRate };
+
+    try {
+      axios.post("shttp://localhost:8080/movies", movie);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.username = ex.response.message;
+        this.setState({ errors });
+      }
+    }
 
     this.props.history.push("/movies");
   };
