@@ -3,6 +3,7 @@ import Form from "./common/form";
 import Joi, { errors } from "joi-browser";
 import { saveMovie, getMovie } from "./services/fakeMovieService";
 import { getGenres } from "./services/fakeGenreService";
+import axios from "axios";
 
 class MovieForm extends Form {
   state = {
@@ -32,14 +33,17 @@ class MovieForm extends Form {
       .label("Daily Rental Rate"),
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const genres = getGenres();
     this.setState({ genres });
 
     const movieId = this.props.match.params.id;
     if (movieId === "new") return;
 
-    const movie = getMovie(movieId);
+    const { data: movie } = await axios.get(
+      "http://localhost:8080/movies" + "/" + movieId
+    );
+    console.log("movie", movie);
     if (!movie) return this.props.history.replace("/not-found");
 
     this.setState({ data: this.mapToViewModel(movie) });
@@ -47,9 +51,9 @@ class MovieForm extends Form {
 
   mapToViewModel(movie) {
     return {
-      _id: movie._id,
+      id: movie.id,
       title: movie.title,
-      genreId: movie.genre._id,
+      genreId: movie.genre.id,
       numberInStock: movie.numberInStock,
       dailyRentalRate: movie.dailyRentalRate,
     };

@@ -7,6 +7,7 @@ import { getGenres } from "./services/fakeGenreService";
 import MoviesTable from "./moviesTable";
 import { Link } from "react-router-dom";
 import Search from "./common/search";
+import axios from "axios";
 import _ from "lodash";
 
 class Movies extends Component {
@@ -20,9 +21,12 @@ class Movies extends Component {
     search: { active: false, value: "" },
   };
 
-  componentDidMount() {
-    this.setState({ movies: getMovies(), genres: getGenres() });
+  async componentDidMount() {
+    const { data } = await axios.get("http://localhost:8080/movies");
+    console.log(data);
+    this.setState({ movies: data, genres: getGenres() });
   }
+
 
   handleDelete = (movie) => {
     let movies = [...this.state.movies];
