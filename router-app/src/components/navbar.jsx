@@ -7,7 +7,7 @@ const NavBar = (props) => {
       <li>
         <Link to="/">Home</Link>
       </li>
-      {/* <li>
+      <li>
         <Link to="/products">Products</Link>
       </li>
       <li>
@@ -15,7 +15,7 @@ const NavBar = (props) => {
       </li>
       <li>
         <Link to="/admin">Admin</Link>
-      </li> */}
+      </li>
     </ul>
   );
 };
