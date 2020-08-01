@@ -11,6 +11,9 @@ class NavBar extends Component {
 
   render() {
     let show = this.state.showMenu ? "show" : "";
+    const {path, match , location} = this.props;
+    const isActive = (path, match, location) => !!(match || path === location.pathname);
+
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link className="navbar-brand" to="/movies">
@@ -20,7 +23,7 @@ class NavBar extends Component {
           <span className="navbar-toggler-icon" />
         </button>
         <div className={"collapse navbar-collapse " + show}>
-          <NavLink to="/movies" className="nav-item nav-link active">
+          <NavLink to="/movies" className="nav-item nav-link active" >
             Movies
           </NavLink>
           <NavLink to="/customers" className="nav-item nav-link">
