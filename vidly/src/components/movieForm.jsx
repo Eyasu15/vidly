@@ -6,6 +6,7 @@ import axios from "axios";
 
 class MovieForm extends Form {
   state = {
+    id: "",
     data: {
       title: "",
       genreId: "",
@@ -17,9 +18,9 @@ class MovieForm extends Form {
   };
 
   schema = {
-    id: Joi.string(),
+    id: Joi.number(),
     title: Joi.string().required().label("Title"),
-    genreId: Joi.string().required().label("Genre"),
+    genreId: Joi.required().label("Genre"),
     numberInStock: Joi.number()
       .required()
       .min(0)
@@ -33,9 +34,9 @@ class MovieForm extends Form {
   };
 
   async componentDidMount() {
-    await this.populateMovie();
     const genres = getGenres();
     this.setState({ genres });
+    await this.populateMovie();
   }
 
   async populateMovie() {
@@ -46,7 +47,7 @@ class MovieForm extends Form {
       const { data: movie } = await axios.get(
         "http://localhost:8080/movies" + "/" + movieId
       );
-      this.setState({ data: this.mapToViewModel(movie) });
+      this.setState({ id: movieId, data: this.mapToViewModel(movie) });
     } catch (ex) {
       if (ex.response && ex.response.status === 400)
         this.props.history.replace("/not-found");
@@ -67,18 +68,27 @@ class MovieForm extends Form {
     const { title, genreId, numberInStock, dailyRentalRate } = {
       ...this.state.data,
     };
-    const genreArray = this.state.genres.filter((g) => g.id === genreId);
-    const genre = { id: genreId, name: genreArray[0].name };
-    const movie = { title, genre, numberInStock, dailyRentalRate };
 
+    const genreArray = this.state.genres.filter((g) => g.id === 1);
+    const genre = { id: genreId, name: genreArray.name };
+
+    let movie = {
+      title,
+      genre,
+      numberInStock,
+      dailyRentalRate,
+    };
+    if (this.state.id) movie.id = this.state.id;
+    console.log(movie);
     try {
-      axios.post("shttp://localhost:8080/movies", movie);
+      await axios.post("http://localhost:8080/movies", movie);
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
         errors.username = ex.response.message;
         this.setState({ errors });
       }
+      alert("something went wrong");
     }
 
     this.props.history.push("/movies");

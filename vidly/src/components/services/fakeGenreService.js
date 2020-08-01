@@ -1,7 +1,7 @@
 export const genres = [
   { name: "All Genres" },
-  { id: "2", name: "Action" },
   { id: "1", name: "Comedy" },
+  { id: "2", name: "Action" },
   { id: "3", name: "Thriller" },
 ];
 

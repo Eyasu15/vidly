@@ -16,12 +16,10 @@ class Form extends Component {
     for (let element of error.details)
       errors[element.path[0]] = element.message;
 
-    console.log(errors);
     return errors;
   }
 
   validateProperty(name, value) {
-    console.log(name);
     const obj = { [name]: value };
     const schema = { [name]: this.schema[name] };
     const { error } = Joi.validate(obj, schema);
@@ -44,7 +42,7 @@ class Form extends Component {
     const errorMessage = this.validateProperty(input.name, input.value);
     if (!errorMessage) delete errors[input.name];
     else errors[input.name] = errorMessage;
-    console.log(errors);
+
     const data = { ...this.state.data };
     data[input.name] = input.value;
 
