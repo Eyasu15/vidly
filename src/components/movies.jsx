@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { getMovies, saveMovie, deleteMovie } from "./services/movieService";
+import { getAllMovies, deleteMovie } from "./services/movieService";
 import Pagination from "./pagination";
 import { paginate } from "./utils/paginate";
 import Genres from "./genres";
-import { getGenres } from "./services/fakeGenreService";
+import { getGenres } from "./services/genreService";
 import MoviesTable from "./moviesTable";
 import { Link } from "react-router-dom";
 import Search from "./common/search";
-import http from "./services/httpService";
 import _ from "lodash";
 
 class Movies extends Component {
@@ -22,8 +21,10 @@ class Movies extends Component {
   };
 
   async componentDidMount() {
-    const { data: movies } = await getMovies();
-    this.setState({ movies, genres: getGenres() });
+    const { data: movies } = await getAllMovies();
+    const { data: genres } = await getGenres();
+    console.log(genres);
+    this.setState({ movies, genres });
   }
 
   handleDelete = async (movie) => {

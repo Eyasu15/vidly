@@ -5,6 +5,6 @@ export const genres = [
   { id: "3", name: "Thriller" },
 ];
 
-export function getGenres() {
+export function getFakeGenres() {
   return genres.filter((g) => g);
 }

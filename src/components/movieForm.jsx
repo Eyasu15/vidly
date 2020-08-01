@@ -1,8 +1,8 @@
 import React from "react";
 import Form from "./common/form";
 import Joi from "joi-browser";
-import { getGenres } from "./services/fakeGenreService";
-import axios from "axios";
+import { getGenres } from "./services/genreService";
+import { getOneMovie, saveMovie } from "./services/movieService";
 
 class MovieForm extends Form {
   state = {
@@ -34,7 +34,7 @@ class MovieForm extends Form {
   };
 
   async componentDidMount() {
-    const genres = getGenres();
+    const { data: genres } = await getGenres();
     this.setState({ genres });
     await this.populateMovie();
   }
@@ -44,9 +44,8 @@ class MovieForm extends Form {
       const movieId = this.props.match.params.id;
       if (movieId === "new") return;
 
-      const { data: movie } = await axios.get(
-        "http://localhost:8080/movies" + "/" + movieId
-      );
+      const { data: movie } = await getOneMovie(movieId);
+
       this.setState({ id: movieId, data: this.mapToViewModel(movie) });
     } catch (ex) {
       if (ex.response && ex.response.status === 400)
@@ -81,7 +80,7 @@ class MovieForm extends Form {
     if (this.state.id) movie.id = this.state.id;
     console.log(movie);
     try {
-      await axios.post("http://localhost:8080/movies", movie);
+      await saveMovie(movie);
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
