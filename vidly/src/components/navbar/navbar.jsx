@@ -20,7 +20,7 @@ class NavBar extends Component {
           <span className="navbar-toggler-icon" />
         </button>
         <div className={"collapse navbar-collapse " + show}>
-          <NavLink to="/movies" className="nav-item nav-link">
+          <NavLink to="/movies" className="nav-item nav-link active">
             Movies
           </NavLink>
           <NavLink to="/customers" className="nav-item nav-link">

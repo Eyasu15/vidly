@@ -16,13 +16,13 @@ class App extends Component {
         <Navbar />
         <main className="container">
           <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/movies/:id" component={MovieForm} />
-            <Route path="/movies" component={Movies} />
-            <Route path="/not-found" component={NotFound} />
-            <Route path="/rentals" component={Rentals} />
-            <Route path="/customers" component={Customers} />
+            <Route path="/login" exact component={Login} />
+            <Route path="/register" exact component={Register} />
+            <Route path="/movies/:id" exact component={MovieForm} />
+            <Route path="/movies" exact component={Movies} />
+            <Route path="/not-found" exact component={NotFound} />
+            <Route path="/rentals" exact component={Rentals} />
+            <Route path="/customers" exact component={Customers} />
             <Redirect from="/" exact to="/movies" />
             <Redirect to="/not-found" />
           </Switch>
