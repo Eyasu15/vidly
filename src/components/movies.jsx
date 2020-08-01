@@ -7,7 +7,7 @@ import { getGenres } from "./services/fakeGenreService";
 import MoviesTable from "./moviesTable";
 import { Link } from "react-router-dom";
 import Search from "./common/search";
-import axios from "axios";
+import http from "./services/httpService";
 import _ from "lodash";
 
 class Movies extends Component {
@@ -22,14 +22,14 @@ class Movies extends Component {
   };
 
   async componentDidMount() {
-    const { data } = await axios.get("http://localhost:8080/movies");
+    const { data } = await http.get("http://localhost:8080/movies");
     this.setState({ movies: data, genres: getGenres() });
   }
 
   handleDelete = (movie) => {
     let movies = [...this.state.movies];
     try {
-      axios.delete("http://localhost:8080/movies/" + movie.id);
+      http.delete("http://localhost:8080/movies/" + movie.id);
     } catch (ex) {
       alert(ex.message);
     }
