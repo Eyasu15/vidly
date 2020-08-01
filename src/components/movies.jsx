@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getMovies, saveMovie } from "./services/fakeMovieService";
+import { getMovies, saveMovie, deleteMovie } from "./services/movieService";
 import Pagination from "./pagination";
 import { paginate } from "./utils/paginate";
 import Genres from "./genres";
@@ -22,17 +22,15 @@ class Movies extends Component {
   };
 
   async componentDidMount() {
-    const { data } = await http.get("http://localhost:8080/movies");
-    this.setState({ movies: data, genres: getGenres() });
+    const { data: movies } = await getMovies();
+    this.setState({ movies, genres: getGenres() });
   }
 
-  handleDelete = (movie) => {
+  handleDelete = async (movie) => {
     let movies = [...this.state.movies];
     try {
-      http.delete("http://localhost:8080/movies/" + movie.id);
-    } catch (ex) {
-      alert(ex.message);
-    }
+      await deleteMovie(movie.id);
+    } catch (ex) {}
 
     movies = movies.filter((m) => m.id !== movie.id);
     this.setState({ movies });
