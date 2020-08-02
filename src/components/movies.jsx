@@ -23,7 +23,7 @@ class Movies extends Component {
   async componentDidMount() {
     const { data: movies } = await getAllMovies();
     const { data: genres } = await getGenres();
-    console.log(genres);
+
     this.setState({ movies, genres });
   }
 
@@ -103,7 +103,7 @@ class Movies extends Component {
       <div className="row">
         <div className="col-3">
           <Genres
-            genres={getGenres()}
+            genres={this.state.genres}
             activeGenre={this.state.activeGenre}
             onGenreChange={this.handleGenreChange}
           />
