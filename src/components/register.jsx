@@ -18,8 +18,12 @@ class Register extends Form {
     try {
       await registerUser(this.state.data);
     } catch (ex) {
-      console.log(ex);
+      const errors = { ...this.state.errors };
+      errors.email = ex.response.data.message;
+      this.setState({ errors });
     }
+
+    if (!this.state.errors) this.props.history.replace("/login");
   };
   render() {
     return (
