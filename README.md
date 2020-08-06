@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+This is a front end of a video rental project. You can find the backend at : https://github.com/Eyasu15/vidly-backend.
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
