@@ -1,7 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 This is a front end of a video rental project. You can find the backend at : https://github.com/Eyasu15/vidly-backend.
-
+Vidly lets clients create account and login. Users can like and rent any movies in the store. Certain users can add, delete, change the movies' details.
 
 
 ## Available Scripts
