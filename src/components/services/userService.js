@@ -10,6 +10,7 @@ function registerUser(user) {
 }
 
 async function login(user) {
+  console.log(user);
   const { data: jwt } = await http.post(usersUrl + "/login", user);
   localStorage.setItem(tokenKey, jwt);
 }
@@ -22,6 +23,10 @@ function logout() {
   localStorage.removeItem(tokenKey);
 }
 
+function getJwt() {
+  return localStorage.getItem(tokenKey);
+}
+
 function getCurrentUser() {
   try {
     const jwt = localStorage.getItem(tokenKey);
@@ -31,4 +36,4 @@ function getCurrentUser() {
   }
 }
 
-export { registerUser, login, logout, getCurrentUser, loginWithJwt };
+export { registerUser, login, logout, getCurrentUser, loginWithJwt, getJwt };

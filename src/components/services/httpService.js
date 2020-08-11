@@ -1,5 +1,8 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import { getJwt } from "./userService";
+
+axios.defaults.headers.common["Authorization"] = "Bearer " + getJwt();
 
 axios.interceptors.response.use(null, (error) => {
   const expectedError =
