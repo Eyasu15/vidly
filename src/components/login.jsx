@@ -18,8 +18,15 @@ class Login extends Form {
   doSubmit = async () => {
     try {
       const { data } = this.state;
-      await login(data.email, data.password);
-    } catch (error) {}
+      const { data: jwt } = await login(data);
+      console.log(jwt);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.email = ex.response.data.message;
+        this.setState({ errors });
+      }
+    }
     console.log("Submitted");
   };
 
