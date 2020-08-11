@@ -15,10 +15,10 @@ class Login extends Form {
     password: Joi.string().required().label("Password"),
   };
 
-  doSubmit = () => {
+  doSubmit = async () => {
     try {
       const { data } = this.state;
-      await login(data.email, data.password)
+      await login(data.email, data.password);
     } catch (error) {}
     console.log("Submitted");
   };
