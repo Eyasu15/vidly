@@ -1,20 +1,22 @@
 import http from "./httpService";
 import { apiUrl } from "../utils/config.json";
 
+const moviesUrl = apiUrl + "movies";
+
 function getAllMovies() {
-  return http.get(apiUrl + "movies");
+  return http.get(moviesUrl);
 }
 
 function getOneMovie(movieId) {
-  return http.get(apiUrl + "movies/" + movieId);
+  return http.get(moviesUrl + "/" + movieId);
 }
 
 function saveMovie(movie) {
-  return http.post(apiUrl + "movies", movie);
+  return http.post(moviesUrl, movie);
 }
 
 function deleteMovie(movieId) {
-  return http.delete(apiUrl + "movies/" + movieId);
+  return http.delete(moviesUrl + "/" + movieId);
 }
 
 export { getAllMovies, getOneMovie, saveMovie, deleteMovie };

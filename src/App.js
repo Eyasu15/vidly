@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { ToastContainer } from "react-toastify";
 import { Switch, Route, Redirect } from "react-router-dom";
-import jwtDecode from "jwt-decode";
 import Movies from "./components/movies";
 import Navbar from "./components/navbar/navbar";
 import Rentals from "./components/rentals";

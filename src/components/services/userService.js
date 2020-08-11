@@ -9,10 +9,13 @@ function registerUser(user) {
   return http.post(usersUrl + "/register", user);
 }
 
-async function login(user) {
-  console.log(user);
-  const { data: jwt } = await http.post(usersUrl + "/login", user);
+async function login(email, password) {
+  const { data: jwt } = await http.post(usersUrl + "/login", {
+    email,
+    password,
+  });
   localStorage.setItem(tokenKey, jwt);
+  localStorage.setItem("header", "Bearer " + jwt);
 }
 
 function loginWithJwt(jwt) {
@@ -21,10 +24,11 @@ function loginWithJwt(jwt) {
 
 function logout() {
   localStorage.removeItem(tokenKey);
+  localStorage.removeItem("header");
 }
 
-function getJwt() {
-  return localStorage.getItem(tokenKey);
+function getHeader() {
+  return localStorage.getItem("header");
 }
 
 function getCurrentUser() {
@@ -36,4 +40,4 @@ function getCurrentUser() {
   }
 }
 
-export { registerUser, login, logout, getCurrentUser, loginWithJwt, getJwt };
+export { registerUser, login, logout, getCurrentUser, loginWithJwt, getHeader };

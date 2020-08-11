@@ -1,8 +1,8 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { getJwt } from "./userService";
+import { getHeader } from "./userService";
 
-axios.defaults.headers.common["Authorization"] = "Bearer " + getJwt();
+axios.defaults.headers.common["Authorization"] = localStorage.getItem("header");
 
 axios.interceptors.response.use(null, (error) => {
   const expectedError =
