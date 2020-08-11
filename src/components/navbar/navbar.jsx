@@ -5,14 +5,16 @@ class NavBar extends Component {
   state = {
     showMenu: false,
   };
+
   toggleMenu = () => {
     this.setState({ showMenu: !this.state.showMenu });
   };
 
   render() {
     let show = this.state.showMenu ? "show" : "";
-    const {path, match , location} = this.props;
-    const isActive = (path, match, location) => !!(match || path === location.pathname);
+    const { path, match, location, user } = this.props;
+    const isActive = (path, match, location) =>
+      !!(match || path === location.pathname);
 
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -23,7 +25,7 @@ class NavBar extends Component {
           <span className="navbar-toggler-icon" />
         </button>
         <div className={"collapse navbar-collapse " + show}>
-          <NavLink to="/movies" className="nav-item nav-link active" >
+          <NavLink to="/movies" className="nav-item nav-link active">
             Movies
           </NavLink>
           <NavLink to="/customers" className="nav-item nav-link">
@@ -32,12 +34,26 @@ class NavBar extends Component {
           <NavLink to="/rentals" className="nav-item nav-link">
             Rentals
           </NavLink>
-          <NavLink to="/login" className="nav-item nav-link">
-            Login
-          </NavLink>
-          <NavLink to="/register" className="nav-item nav-link">
-            Register
-          </NavLink>
+          {!user && (
+            <React.Fragment>
+              <NavLink to="/login" className="nav-item nav-link">
+                Login
+              </NavLink>
+              <NavLink to="/register" className="nav-item nav-link">
+                Register
+              </NavLink>{" "}
+            </React.Fragment>
+          )}
+          {user && (
+            <React.Fragment>
+              <NavLink to="/profile" className="nav-item nav-link">
+                {user.sub}
+              </NavLink>
+              <NavLink to="/logout" className="nav-item nav-link">
+                Logout
+              </NavLink>{" "}
+            </React.Fragment>
+          )}
         </div>
       </nav>
     );
