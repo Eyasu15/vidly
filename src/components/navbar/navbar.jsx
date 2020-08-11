@@ -15,7 +15,6 @@ class NavBar extends Component {
     const { path, match, location, user } = this.props;
     const isActive = (path, match, location) =>
       !!(match || path === location.pathname);
-
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link className="navbar-brand" to="/movies">
@@ -47,7 +46,7 @@ class NavBar extends Component {
           {user && (
             <React.Fragment>
               <NavLink to="/profile" className="nav-item nav-link">
-                {user.sub}
+                {user.name}
               </NavLink>
               <NavLink to="/logout" className="nav-item nav-link">
                 Logout

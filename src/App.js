@@ -9,19 +9,17 @@ import Customers from "./components/customers";
 import NotFound from "./components/notFound";
 import MovieForm from "./components/movieForm";
 import Login from "./components/login";
+import Logout from "./components/logout";
 import Register from "./components/register";
+import { getCurrentUser } from "./components/services/userService";
 import "react-toastify/dist/ReactToastify.css";
 
 class App extends Component {
   state = {};
 
   componentDidMount() {
-    try {
-      const jwt = localStorage.getItem("token");
-      const user = jwtDecode(jwt);
-      console.log(user.sub);
-      this.setState({ user });
-    } catch (ex) {}
+    const user = getCurrentUser();
+    this.setState({ user });
   }
 
   render() {
@@ -32,6 +30,7 @@ class App extends Component {
         <main className="container">
           <Switch>
             <Route path="/login" exact component={Login} />
+            <Route path="/logout" exact component={Logout} />
             <Route path="/register" exact component={Register} />
             <Route path="/movies/:id" exact component={MovieForm} />
             <Route path="/movies" exact component={Movies} />
