@@ -3,6 +3,7 @@ import { apiUrl } from "../utils/config.json";
 import jwtDecode from "jwt-decode";
 
 const usersUrl = apiUrl + "users";
+const tokenKey = "token";
 
 function registerUser(user) {
   return http.post(usersUrl + "/register", user);
@@ -10,20 +11,24 @@ function registerUser(user) {
 
 async function login(user) {
   const { data: jwt } = await http.post(usersUrl + "/login", user);
-  localStorage.setItem("token", jwt);
+  localStorage.setItem(tokenKey, jwt);
+}
+
+function loginWithJwt(jwt) {
+  localStorage.setItem(tokenKey, jwt);
 }
 
 function logout() {
-  localStorage.removeItem("token");
+  localStorage.removeItem(tokenKey);
 }
 
 function getCurrentUser() {
   try {
-    const jwt = localStorage.getItem("token");
+    const jwt = localStorage.getItem(tokenKey);
     return jwtDecode(jwt);
   } catch (ex) {
     return null;
   }
 }
 
-export { registerUser, login, logout, getCurrentUser };
+export { registerUser, login, logout, getCurrentUser, loginWithJwt };
