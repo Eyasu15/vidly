@@ -22,10 +22,12 @@ class App extends Component {
   }
 
   render() {
+    const user = this.state.user;
+
     return (
       <React.Fragment>
         <ToastContainer />
-        <Navbar user={this.state.user} />
+        <Navbar user={user} />
         <main className="container">
           <Switch>
             <Route path="/login" exact component={Login} />

@@ -5,15 +5,15 @@ class Search extends Component {
   render() {
     const { onChange, data } = this.props;
     return (
-      <div class="input-group flex-nowrap mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="addon-wrapping">
+      <div className="input-group flex-nowrap mb-3">
+        <div className="input-group-prepend">
+          <span className="input-group-text" id="addon-wrapping">
             Search
           </span>
         </div>
         <input
           type="text"
-          class="form-control"
+          className="form-control"
           name="search"
           value={data}
           onChange={onChange}

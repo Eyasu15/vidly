@@ -28,12 +28,15 @@ class Movies extends Component {
   }
 
   handleDelete = async (movie) => {
-    let movies = [...this.state.movies];
+    let originalMovies = [...this.state.movies];
+    let movies = originalMovies.filter((m) => m.id !== movie.id);
+
     try {
       await deleteMovie(movie.id);
-    } catch (ex) {}
+    } catch (ex) {
+      movies = originalMovies;
+    }
 
-    movies = movies.filter((m) => m.id !== movie.id);
     this.setState({ movies });
   };
 
@@ -98,7 +101,7 @@ class Movies extends Component {
     if (count < 1) return <p>There are no movies in the database</p>;
 
     const { totalCount, data: movies } = this.getPagedData();
-
+    const user = this.props.user;
     return (
       <div className="row">
         <div className="col-3">
@@ -109,9 +112,11 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
-          <Link to="/movies/new" className="btn btn-primary mb-3">
-            New Movie
-          </Link>
+          {user && (
+            <Link to="/movies/new" className="btn btn-primary mb-3">
+              New Movie
+            </Link>
+          )}
           <Search onChange={this.handleSearch} data={search.value} />
           <p>Showing {totalCount} movies</p>
           <MoviesTable
