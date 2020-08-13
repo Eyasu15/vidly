@@ -3,8 +3,9 @@ import { apiUrl } from "../utils/config.json";
 import jwtDecode from "jwt-decode";
 
 const usersUrl = apiUrl + "users";
-const token = "token";
-http.setJwt(token);
+const tokenKey = "token";
+http.setJwt(getHeader());
+
 function registerUser(user) {
   return http.post(usersUrl + "/register", user);
 }
@@ -14,24 +15,30 @@ async function login(email, password) {
     email,
     password,
   });
-  localStorage.setItem(token, jwt);
+  localStorage.setItem(tokenKey, jwt);
+  localStorage.setItem("header", "Bearer " + jwt);
 }
 
 function loginWithJwt(jwt) {
-  localStorage.setItem(token, jwt);
+  localStorage.setItem(tokenKey, jwt);
 }
 
 function logout() {
-  localStorage.removeItem(token);
+  localStorage.removeItem(tokenKey);
+  localStorage.removeItem("header");
+}
+
+function getHeader() {
+  return localStorage.getItem("header");
 }
 
 function getCurrentUser() {
   try {
-    const jwt = localStorage.getItem(token);
+    const jwt = localStorage.getItem(tokenKey);
     return jwtDecode(jwt);
   } catch (ex) {
     return null;
   }
 }
 
-export { registerUser, login, logout, getCurrentUser, loginWithJwt };
+export { registerUser, login, logout, getCurrentUser, loginWithJwt, getHeader };
