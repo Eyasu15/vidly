@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import { getHeader } from "./userService";
 
 axios.defaults.headers.common["Authorization"] = getHeader();
-console.log(getHeader());
 
 axios.interceptors.response.use(null, (error) => {
   const expectedError =
