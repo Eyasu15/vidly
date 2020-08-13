@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 
 const usersUrl = apiUrl + "users";
 const tokenKey = "token";
-
+http.setJwt(token);
 function registerUser(user) {
   return http.post(usersUrl + "/register", user);
 }
@@ -15,7 +15,6 @@ async function login(email, password) {
     password,
   });
   localStorage.setItem(tokenKey, jwt);
-  localStorage.setItem("header", "Bearer " + jwt);
 }
 
 function loginWithJwt(jwt) {
@@ -24,11 +23,6 @@ function loginWithJwt(jwt) {
 
 function logout() {
   localStorage.removeItem(tokenKey);
-  localStorage.removeItem("header");
-}
-
-function getHeader() {
-  return localStorage.getItem("header");
 }
 
 function getCurrentUser() {
