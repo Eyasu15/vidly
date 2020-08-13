@@ -1,8 +1,5 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import { getHeader } from "./userService";
-
-axios.defaults.headers.common["Authorization"] = getHeader();
 
 axios.interceptors.response.use(null, (error) => {
   const expectedError =
@@ -18,9 +15,14 @@ axios.interceptors.response.use(null, (error) => {
   return Promise.reject(error);
 });
 
+function setJwt(jwt) {
+  axios.defaults.headers.common["Authorization"] = jwt;
+}
+
 export default {
   get: axios.get,
   post: axios.post,
   put: axios.put,
   delete: axios.delete,
+  setJwt,
 };
