@@ -9,7 +9,7 @@ class TableHeader extends Component {
     if (sortColumn.path === path) {
       const c =
         sortColumn.order === "asc" ? "fa fa-sort-asc" : "fa fa-sort-desc";
-      return <i class={c} aria-hidden="true"></i>;
+      return <i className={c} aria-hidden="true"></i>;
     }
     return null;
   };
