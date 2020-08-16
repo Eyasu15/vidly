@@ -1,10 +1,14 @@
 import React from "react";
+import getCurrentUser from "../services/userService";
 
-const ProtectedRoute = (props) => {
+const ProtectedRoute = ({ path, component: Component, render }) => {
   <Route
-    path={props.path}
+    path={path}
     render={(props) => {
-      if (!props.user) return <Redirect to={props.login} />;
+      if (!getCurrentUser) return <Redirect to={props.login} />;
+      return Component ? <Component {...props} /> : render(props);
     }}
   />;
 };
+
+export default ProtectedRoute;

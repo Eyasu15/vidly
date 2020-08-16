@@ -12,6 +12,7 @@ import Logout from "./components/logout";
 import Register from "./components/register";
 import { getCurrentUser } from "./components/services/userService";
 import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from "./components/common/protectedRoute";
 
 class App extends Component {
   state = {};
@@ -35,11 +36,11 @@ class App extends Component {
             <Route path="/register" exact component={Register} />
             <Route
               path="/movies/:id"
-              exact
               render={(props) => {
                 if (!user) return <Redirect to={"/login"} />;
               }}
             />
+            <ProtectedRoute path="/movies/:id" />
             <Route
               path="/movies"
               exact
