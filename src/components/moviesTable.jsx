@@ -20,7 +20,7 @@ class MoviesTable extends Component {
     super();
     const user = getCurrentUser();
     if (user)
-      this.columns.concat = {
+      this.columns.join = {
         key: "delete",
         content: (movie) => (
           <button
