@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Like from "./common/like";
 import Table from "./common/table";
+import { getCurrentUser } from "./services/userService";
 
 class MoviesTable extends Component {
   columns = [
@@ -12,12 +13,14 @@ class MoviesTable extends Component {
       key: "like",
       content: (movie) => <Like movie={movie} onLike={this.props.onLike} />,
     },
-    this.userLoggedIn,
+    ,
   ];
 
-  userLoggedIn = () => {
-    if (this.props.user)
-      return {
+  constructor() {
+    super();
+    const user = getCurrentUser();
+    if (user)
+      this.columns.concat = {
         key: "delete",
         content: (movie) => (
           <button
@@ -28,7 +31,7 @@ class MoviesTable extends Component {
           </button>
         ),
       };
-  };
+  }
 
   render() {
     let { movies, sortColumn, onSort } = this.props;
