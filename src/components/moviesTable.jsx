@@ -12,18 +12,23 @@ class MoviesTable extends Component {
       key: "like",
       content: (movie) => <Like movie={movie} onLike={this.props.onLike} />,
     },
-    {
-      key: "delete",
-      content: (movie) => (
-        <button
-          className="btn btn-danger"
-          onClick={() => this.props.onDelete(movie)}
-        >
-          Delete
-        </button>
-      ),
-    },
+    this.userLoggedIn,
   ];
+
+  userLoggedIn = () => {
+    if (this.props.user)
+      return {
+        key: "delete",
+        content: (movie) => (
+          <button
+            className="btn btn-danger"
+            onClick={() => this.props.onDelete(movie)}
+          >
+            Delete
+          </button>
+        ),
+      };
+  };
 
   render() {
     let { movies, sortColumn, onSort } = this.props;
