@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Like from "./common/like";
-import Table from "./common/table";
-import { getCurrentUser } from "./services/userService";
+import Like from "../common/like";
+import Table from "../common/table";
+import { getCurrentUser } from "../services/userService";
 
 class MoviesTable extends Component {
   columns = [
@@ -21,18 +21,16 @@ class MoviesTable extends Component {
     if (user) this.columns.push(this.deleteColumn);
   }
 
-  deleteColumn = () => {
-    return {
-      key: "delete",
-      content: (movie) => (
-        <button
-          className="btn btn-danger"
-          onClick={() => this.props.onDelete(movie)}
-        >
-          Delete
-        </button>
-      ),
-    };
+  deleteColumn = {
+    key: "delete",
+    content: (movie) => (
+      <button
+        className="btn btn-danger"
+        onClick={() => this.props.onDelete(movie)}
+      >
+        Delete
+      </button>
+    ),
   };
 
   render() {
