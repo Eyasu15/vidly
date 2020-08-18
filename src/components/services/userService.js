@@ -6,6 +6,15 @@ const usersUrl = apiUrl + "users";
 const tokenKey = "token";
 http.setJwt(getHeader());
 
+if (isUserExpired()) logout();
+
+function isUserExpired() {
+  const millis = Date.now();
+  const user = getCurrentUser();
+  if (user) var { exp } = user;
+  return exp > millis;
+}
+
 function registerUser(user) {
   return http.post(usersUrl + "/register", user);
 }
