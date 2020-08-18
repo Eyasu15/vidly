@@ -10,13 +10,17 @@ class CustomerForm extends Form {
   };
 
   schema = {
-    id: Joi.number().required(),
+    id: Joi.number(),
     name: Joi.string().required().label("Name"),
     phone: Joi.string()
       .trim()
       .regex(/^[0-9]{7,10}$/)
       .required()
-      .label("Phone"),
+      .error(() => {
+        return {
+          message: "Invalid input.",
+        };
+      }),
     isGold: Joi.boolean(),
   };
 
