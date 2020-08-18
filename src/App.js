@@ -13,6 +13,7 @@ import Register from "./components/register";
 import { getCurrentUser } from "./components/services/userService";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./components/common/protectedRoute";
+import CustomerForm from "./components/customerComponents/customerForm";
 
 class App extends Component {
   state = {};
@@ -43,6 +44,7 @@ class App extends Component {
             <Route path="/not-found" exact component={NotFound} />
             <Route path="/rentals" exact component={Rentals} />
             <Route path="/customers" exact component={Customers} />
+            <Route path="/customers/:id" exact component={CustomerForm} />
             <Redirect from="/" exact to="/movies" />
             <Redirect to="/not-found" />
           </Switch>

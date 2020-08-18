@@ -7,7 +7,7 @@ function getAllCustomers() {
   return http.get(customerUrl);
 }
 
-function getAllCustomers(id) {
+function getOneCustomer(id) {
   return http.get(customerUrl + "/" + id);
 }
 
