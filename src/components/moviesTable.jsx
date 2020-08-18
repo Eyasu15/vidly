@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Like from "../common/like";
-import Table from "../common/table";
-import { getCurrentUser } from "../services/userService";
+import Table from "./common/table";
+import Like from "./common/like";
+import { getCurrentUser } from "./services/userService";
 
 class MoviesTable extends Component {
   columns = [
