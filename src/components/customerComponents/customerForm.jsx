@@ -24,9 +24,7 @@ class CustomerForm extends Form {
     isGold: Joi.boolean(),
   };
 
-  doSubmit = () => {
-    console.log("submitted");
-  };
+  doSubmit = () => {};
   render() {
     const customerTier = [
       { id: true, name: "Yes" },

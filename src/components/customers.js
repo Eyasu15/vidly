@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import CustomerForm from "./customerComponents/customerForm";
 
 class Customers extends Component {
-  state = {};
+  state = {
+    customers: "",
+  };
   render() {
-    return <CustomerForm />;
+    return < />;
   }
 }
 
