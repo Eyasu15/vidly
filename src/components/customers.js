@@ -4,20 +4,25 @@ import { getAllCustomers } from "./services/customerService";
 import { Link } from "react-router-dom";
 import Search from "./common/search";
 import CustomerTable from "./customerComponents/customerTable";
+import Pagination from "./pagination";
 
 class Customers extends Component {
   state = {
     customers: "",
     search: { active: false, value: "" },
+    sortColumn: { path: "title", order: "asc" },
+    pageSize: 5,
+    activePage: 1,
   };
 
   async componentDidMount() {
     const { data: customers } = await getAllCustomers();
+    console.log("customers", customers);
     this.setState({ customers });
   }
 
   render() {
-    const { customers, search } = this.state;
+    const { customers, search, sortColumn, pageSize, activePage } = this.state;
     const totalCount = customers.length;
     return (
       <div className="col">
@@ -34,7 +39,6 @@ class Customers extends Component {
           onLike={this.handleLike}
           onDelete={this.handleDelete}
           onSort={this.handleSort}
-          user={user}
         />
         <Pagination
           itemsCount={totalCount}

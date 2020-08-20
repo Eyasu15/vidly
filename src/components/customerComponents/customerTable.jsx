@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Table from "../common/table";
 
 class CutomerTable extends Component {
   column = [
@@ -18,7 +19,16 @@ class CutomerTable extends Component {
     },
   ];
   render() {
-    return <h1>It works</h1>;
+    let { customers, sortColumn, onSort } = this.props;
+    console.log("cusomers", customers);
+    return (
+      <Table
+        columns={this.columns}
+        sortColumn={sortColumn}
+        items={customers}
+        onSort={onSort}
+      />
+    );
   }
 }
 
