@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CustomerForm from "./customerComponents/customerForm";
 import { getAllCustomers } from "./services/customerService";
+import { Link } from "react-router-dom";
 
 class Customers extends Component {
   state = {
@@ -17,8 +18,8 @@ class Customers extends Component {
     return (
       <div className="col">
         {customers && (
-          <Link to="/movies/new" className="btn btn-primary mb-3">
-            New Movie
+          <Link to="/customers/new" className="btn btn-primary mb-3">
+            New Customer
           </Link>
         )}
         <Search onChange={this.handleSearch} data={search.value} />

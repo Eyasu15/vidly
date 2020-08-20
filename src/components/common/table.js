@@ -3,6 +3,7 @@ import TableBody from "./tableBody";
 import TableHeader from "./tableHeader";
 
 class Table extends Component {
+  
   handleSort = (path) => {
     let sortColumn = { ...this.props.sortColumn };
 

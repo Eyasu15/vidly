@@ -6,10 +6,10 @@ class CutomerTable extends Component {
         { label: "Phone", path: "phone", clicked: false },
         { label: "Gold Member", path: "isGold", clicked: false },
         {    key: "delete",
-        content: (movie) => (
+        content: (customer) => (
           <button
             className="btn btn-danger"
-            onClick={() => this.props.onDelete(movie)}
+            onClick={() => this.props.onDelete(customer)}
           >
             Delete
           </button>
