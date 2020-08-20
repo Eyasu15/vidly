@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Table from "../common/table";
 
 class CutomerTable extends Component {
-  column = [
+  columns = [
     { label: "Name", path: "name", clicked: false },
     { label: "Phone", path: "phone", clicked: false },
     { label: "Gold Member", path: "isGold", clicked: false },
