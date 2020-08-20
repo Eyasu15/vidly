@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import CustomerForm from "./customerComponents/customerForm";
 import { getAllCustomers } from "./services/customerService";
 import { Link } from "react-router-dom";
+import Search from "./common/search";
+import CustomerTable from "./customerComponents/customerTable";
 
 class Customers extends Component {
   state = {
@@ -24,7 +26,7 @@ class Customers extends Component {
         )}
         <Search onChange={this.handleSearch} data={search.value} />
         <p>Showing {totalCount} movies</p>
-        <MoviesTable
+        <CustomerTable
           movies={movies}
           sortColumn={sortColumn}
           onLike={this.handleLike}
