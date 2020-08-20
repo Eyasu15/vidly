@@ -8,6 +8,7 @@ import CustomerTable from "./customerComponents/customerTable";
 class Customers extends Component {
   state = {
     customers: "",
+    search: { active: false, value: "" },
   };
 
   async componentDidMount() {
@@ -16,7 +17,8 @@ class Customers extends Component {
   }
 
   render() {
-    const { customers } = this.state;
+    const { customers, search } = this.state;
+    const totalCount = customers.length;
     return (
       <div className="col">
         {customers && (
@@ -25,9 +27,9 @@ class Customers extends Component {
           </Link>
         )}
         <Search onChange={this.handleSearch} data={search.value} />
-        <p>Showing {totalCount} movies</p>
+        <p>Showing {totalCount} customers</p>
         <CustomerTable
-          movies={movies}
+          customers={customers}
           sortColumn={sortColumn}
           onLike={this.handleLike}
           onDelete={this.handleDelete}
