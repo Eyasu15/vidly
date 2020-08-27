@@ -18,3 +18,10 @@ function deleteRental(id) {
 function addRental(rental) {
   return http.post(rentalUrl, rental);
 }
+
+export default {
+  getAllRentals,
+  addRental,
+  deleteRental,
+  getUserRentals,
+};
