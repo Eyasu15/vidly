@@ -14,3 +14,7 @@ function getUserRentals(userId) {
 function deleteRental(id) {
   return http.delete(rentalUrl + "/" + id);
 }
+
+function addRental(rental) {
+  return http.post(rentalUrl, rental);
+}
