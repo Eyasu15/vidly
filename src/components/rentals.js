@@ -1,7 +1,10 @@
-import React from "react";
+import React,{Component} from "react";
 
-const Rentals = () => {
-  return <h1>Rentals</h1>;
-};
-
+class Rentals extends Component {
+  state = {  }
+  render() { 
+    return (  );
+  }
+}
+ 
 export default Rentals;
