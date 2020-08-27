@@ -6,3 +6,11 @@ const rentalUrl = apiUrl + "rentals";
 function getAllRentals() {
   return http.get(rentalUrl);
 }
+
+function getUserRentals(userId) {
+  return http.get(rentalUrl, userId);
+}
+
+function deleteRental(id) {
+  return http.delete(rentalUrl + "/" + id);
+}
