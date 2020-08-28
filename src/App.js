@@ -3,7 +3,6 @@ import { ToastContainer } from "react-toastify";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Movies from "./components/movies";
 import Navbar from "./components/navbar/navbar";
-import Rentals from "./components/rentals";
 import Customers from "./components/customers";
 import NotFound from "./components/notFound";
 import MovieForm from "./components/movieForm";
@@ -14,6 +13,7 @@ import { getCurrentUser } from "./components/services/userService";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./components/common/protectedRoute";
 import CustomerForm from "./components/customerComponents/customerForm";
+import Rentals from "./components/rentalComponent/rentals";
 
 class App extends Component {
   state = {};
