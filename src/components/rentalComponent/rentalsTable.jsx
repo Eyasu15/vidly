@@ -6,7 +6,19 @@ class RentalsTable extends Component {
         {label:"Customer", path:"customer",clicked:false},
         {label:"Date Out", path:"dateOut",clicked:false},
         {label:"Return Date", path:"dateReturn",clicked:false},
-        {label:"Fee", path:"rentalFee",clicked:false}];
+        {label:"Fee", path:"rentalFee",clicked:false},
+        {
+            key: "delete",
+            content: (customer) => (
+              <button
+                className="btn btn-danger"
+                onClick={() => this.props.onDelete(customer)}
+              >
+                Delete
+              </button>
+            ),
+          },
+        ];
     
     
         render() { 
