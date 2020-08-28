@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import rentalsService from "./services/rentalsService";
+import rentalsService from "../services/rentalsService";
 
 class Rentals extends Component {
   state = { 
