@@ -13,5 +13,4 @@ class RentalsTable extends Component {
         return (  );
     }
 }
- //movie, customer, dateout, datereturn, rentalfee
 export default RentalsTable;
