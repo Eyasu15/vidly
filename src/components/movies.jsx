@@ -8,6 +8,7 @@ import MoviesTable from "./moviesTable";
 import { Link } from "react-router-dom";
 import Search from "./common/search";
 import _ from "lodash";
+import { getCurrentUser } from "./services/userService";
 
 class Movies extends Component {
   state = {
