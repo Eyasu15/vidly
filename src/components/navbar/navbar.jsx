@@ -13,7 +13,6 @@ class NavBar extends Component {
   render() {
     let show = this.state.showMenu ? "show" : "";
     const { user } = this.props;
-    console.log(user);
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link className="navbar-brand" to="/movies">
@@ -26,7 +25,7 @@ class NavBar extends Component {
           <NavLink to="/movies" className="nav-item nav-link active">
             Movies
           </NavLink>
-          {user && (
+          {user && user.role === "ROLE_ADMIN" && (
             <React.Fragment>
               <NavLink to="/customers" className="nav-item nav-link">
                 Customers
@@ -34,12 +33,16 @@ class NavBar extends Component {
               <NavLink to="/rentals" className="nav-item nav-link">
                 Rentals
               </NavLink>
+            </React.Fragment>
+          )}
+          {user && (
+            <React.Fragment>
               <NavLink to="/profile" className="nav-item nav-link">
-                {user.name}
+                {user.name.toUpperCase()}
               </NavLink>
               <NavLink to="/logout" className="nav-item nav-link">
                 Logout
-              </NavLink>{" "}
+              </NavLink>
             </React.Fragment>
           )}
           {!user && (

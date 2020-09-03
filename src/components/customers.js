@@ -19,7 +19,6 @@ class Customers extends Component {
 
   async componentDidMount() {
     const { data: customers } = await getAllCustomers();
-    console.log("customers", customers);
     this.setState({ customers });
   }
 
