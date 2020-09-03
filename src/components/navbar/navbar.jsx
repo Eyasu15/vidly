@@ -27,12 +27,22 @@ class NavBar extends Component {
           <NavLink to="/movies" className="nav-item nav-link active">
             Movies
           </NavLink>
-          <NavLink to="/customers" className="nav-item nav-link">
-            Customers
-          </NavLink>
-          <NavLink to="/rentals" className="nav-item nav-link">
-            Rentals
-          </NavLink>
+          {user && (
+            <React.Fragment>
+              <NavLink to="/customers" className="nav-item nav-link">
+                Customers
+              </NavLink>
+              <NavLink to="/rentals" className="nav-item nav-link">
+                Rentals
+              </NavLink>
+              <NavLink to="/profile" className="nav-item nav-link">
+                {user.name}
+              </NavLink>
+              <NavLink to="/logout" className="nav-item nav-link">
+                Logout
+              </NavLink>{" "}
+            </React.Fragment>
+          )}
           {!user && (
             <React.Fragment>
               <NavLink to="/login" className="nav-item nav-link">
@@ -40,16 +50,6 @@ class NavBar extends Component {
               </NavLink>
               <NavLink to="/register" className="nav-item nav-link">
                 Register
-              </NavLink>{" "}
-            </React.Fragment>
-          )}
-          {user && (
-            <React.Fragment>
-              <NavLink to="/profile" className="nav-item nav-link">
-                {user.name}
-              </NavLink>
-              <NavLink to="/logout" className="nav-item nav-link">
-                Logout
               </NavLink>{" "}
             </React.Fragment>
           )}

@@ -9,17 +9,21 @@ class MoviesTable extends Component {
     { label: "Genre", path: "genre.name", clicked: false },
     { label: "Stock", path: "numberInStock", clicked: false },
     { label: "Rate", path: "dailyRentalRate", clicked: false },
-    {
-      key: "like",
-      content: (movie) => <Like movie={movie} onLike={this.props.onLike} />,
-    },
   ];
 
   constructor() {
     super();
     const user = getCurrentUser();
-    if (user) this.columns.push(this.deleteColumn);
+    if (user) {
+      this.columns.push(this.deleteColumn);
+      this.columns.push(this.likeColumn);
+    }
   }
+
+  likeColumn = {
+    key: "like",
+    content: (movie) => <Like movie={movie} onLike={this.props.onLike} />,
+  };
 
   deleteColumn = {
     key: "delete",
