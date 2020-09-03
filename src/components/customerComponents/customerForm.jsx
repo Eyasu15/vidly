@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Form from "../common/form";
 import Joi from "joi-browser";
+import { addCustomer } from "../services/customerService";
 
 class CustomerForm extends Form {
   state = {
@@ -24,7 +25,18 @@ class CustomerForm extends Form {
     isGold: Joi.boolean(),
   };
 
-  doSubmit = () => {};
+  doSubmit = async () => {
+    const data = this.state.data;
+    try {
+      await addCustomer(data);
+    } catch (ex) {
+      if (ex.response.status == 400) {
+        const { errors } = this.state;
+        errors.name = ex.response.message;
+      }
+    }
+    this.props.history.replace("/customers");
+  };
   render() {
     const customerTier = [
       { id: true, name: "Yes" },

@@ -15,11 +15,7 @@ class Pagination extends Component {
               key={page}
               className={page === activePage ? "page-item active" : "page-item"}
             >
-              <a
-                className="page-link"
-                href="#"
-                onClick={() => onPageChange(page)}
-              >
+              <a className="page-link" onClick={() => onPageChange(page)}>
                 {page}
               </a>
             </li>
