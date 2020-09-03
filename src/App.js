@@ -35,20 +35,28 @@ class App extends Component {
             <Route path="/login" exact component={Login} />
             <Route path="/logout" exact component={Logout} />
             <Route path="/register" exact component={Register} />
-            <ProtectedRoute path="/movies/:id" component={MovieForm} />
             <Route
               path="/movies"
               exact
               render={(props) => <Movies {...props} user={this.state.user} />}
             />
+            {user && user.role === "ROLE_ADMIN" && (
+              <React.Fragment>
+                <Route
+                  path="/movies"
+                  exact
+                  render={(props) => (
+                    <Movies {...props} user={this.state.user} />
+                  )}
+                />
+                <Route path="/movies/:id" component={MovieForm} />
+                <Route path="/customers" exact component={Customers} />
+                <Route path="/customers/:id" exact component={CustomerForm} />
+              </React.Fragment>
+            )}
+            {user && user.role === "ROLE_USER" && <div></div>}
+            {!user && <Redirect from="/movies/:id" to="/login" />}
             <Route path="/not-found" exact component={NotFound} />
-            {/* <ProtectedRoute path="/rentals" exact component={Rentals} /> */}
-            <ProtectedRoute path="/customers" exact component={Customers} />
-            <ProtectedRoute
-              path="/customers/:id"
-              exact
-              component={CustomerForm}
-            />
             <Redirect from="/" exact to="/movies" />
             <Redirect to="/not-found" />
           </Switch>
