@@ -42,9 +42,13 @@ class App extends Component {
               render={(props) => <Movies {...props} user={this.state.user} />}
             />
             <Route path="/not-found" exact component={NotFound} />
-            <Route path="/rentals" exact component={Rentals} />
-            <Route path="/customers" exact component={Customers} />
-            <Route path="/customers/:id" exact component={CustomerForm} />
+            <ProtectedRoute path="/rentals" exact component={Rentals} />
+            <ProtectedRoute path="/customers" exact component={Customers} />
+            <ProtectedRoute
+              path="/customers/:id"
+              exact
+              component={CustomerForm}
+            />
             <Redirect from="/" exact to="/movies" />
             <Redirect to="/not-found" />
           </Switch>
