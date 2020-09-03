@@ -11,7 +11,7 @@ class CutomerTable extends Component {
       content: (customer) => (
         <button
           className="btn btn-danger"
-          onClick={() => this.props.onDelete(customer)}
+          onClick={() => this.props.onDelete(customer.id)}
         >
           Delete
         </button>
@@ -20,7 +20,6 @@ class CutomerTable extends Component {
   ];
   render() {
     let { customers, sortColumn, onSort } = this.props;
-    console.log("cusomers", customers);
     return (
       <Table
         columns={this.columns}

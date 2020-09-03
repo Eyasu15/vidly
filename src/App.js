@@ -42,7 +42,7 @@ class App extends Component {
               render={(props) => <Movies {...props} user={this.state.user} />}
             />
             <Route path="/not-found" exact component={NotFound} />
-            <ProtectedRoute path="/rentals" exact component={Rentals} />
+            {/* <ProtectedRoute path="/rentals" exact component={Rentals} /> */}
             <ProtectedRoute path="/customers" exact component={Customers} />
             <ProtectedRoute
               path="/customers/:id"

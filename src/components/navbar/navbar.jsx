@@ -12,9 +12,8 @@ class NavBar extends Component {
 
   render() {
     let show = this.state.showMenu ? "show" : "";
-    const { path, match, location, user } = this.props;
-    const isActive = (path, match, location) =>
-      !!(match || path === location.pathname);
+    const { user } = this.props;
+    console.log(user);
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link className="navbar-brand" to="/movies">

@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import CustomerForm from "./customerComponents/customerForm";
-import { getAllCustomers } from "./services/customerService";
+import { getAllCustomers, deleteCustomer } from "./services/customerService";
 import { Link } from "react-router-dom";
 import Search from "./common/search";
 import CustomerTable from "./customerComponents/customerTable";
 import Pagination from "./pagination";
+import { toast } from "react-toastify";
+import { getCurrentUser } from "./services/userService";
 
 class Customers extends Component {
   state = {
@@ -21,15 +23,24 @@ class Customers extends Component {
     this.setState({ customers });
   }
 
+  handleDelete = async (id) => {
+    const originalCustomers = [...this.state.customers];
+    const customers = originalCustomers.filter((c) => c.id !== id);
+    try {
+      await deleteCustomer(id);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        toast.error(ex.response.message);
+        this.setState({ customers: originalCustomers });
+      }
+    }
+    this.setState({ customers });
+  };
+
   render() {
     const { customers, search, sortColumn, pageSize, activePage } = this.state;
     const totalCount = customers.length;
     return (
-      // <div>
-      //   {customers.map((c) => (
-      //     <h1>{c.name}</h1>
-      //   ))}
-      // </div>
       <div className="col">
         {customers && (
           <Link to="/customers/new" className="btn btn-primary mb-3">

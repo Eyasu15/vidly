@@ -16,7 +16,7 @@ function addCustomer(customer) {
 }
 
 function deleteCustomer(id) {
-  return http.get(customerUrl + "/" + id);
+  return http.delete(customerUrl + "/" + id);
 }
 
 export { getAllCustomers, getOneCustomer, addCustomer, deleteCustomer };
