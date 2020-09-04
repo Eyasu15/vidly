@@ -3,7 +3,6 @@ import TableBody from "./tableBody";
 import TableHeader from "./tableHeader";
 
 class Table extends Component {
-  
   handleSort = (path) => {
     let sortColumn = { ...this.props.sortColumn };
 
@@ -17,7 +16,7 @@ class Table extends Component {
   };
 
   render() {
-    const { columns, sortColumn, items } = this.props;
+    const { columns, sortColumn, items, link, itemPath } = this.props;
     return (
       <table className="table">
         <TableHeader
@@ -25,7 +24,12 @@ class Table extends Component {
           sortColumn={sortColumn}
           onSort={this.handleSort}
         />
-        <TableBody columns={columns} items={items} />
+        <TableBody
+          columns={columns}
+          items={items}
+          link={link}
+          itemPath={itemPath}
+        />
       </table>
     );
   }

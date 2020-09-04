@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import Form from "../common/form";
 import Joi from "joi-browser";
-import { addCustomer } from "../services/customerService";
+import { addCustomer, getOneCustomer } from "../services/customerService";
+import { toast } from "react-toastify";
 
 class CustomerForm extends Form {
   state = {
     id: "",
-    data: { name: "", phone: "", isGold: false },
+    data: { name: "", phone: "", isGold: false, reviews: [], moviesRented: [] },
     errors: {},
   };
 
@@ -23,7 +24,25 @@ class CustomerForm extends Form {
         };
       }),
     isGold: Joi.boolean(),
+    reviews: Joi.array(),
+    moviesRented: Joi.array(),
   };
+
+  componentDidMount() {
+    this.populateCustomerForm();
+  }
+
+  async populateCustomerForm() {
+    const customerId = this.props.match.params.id;
+    if (customerId === "new") return;
+    try {
+      const { data } = await getOneCustomer(customerId);
+      this.setState({ id: customerId, data });
+      console.log(data);
+    } catch (ex) {
+      toast.error(ex.response.message);
+    }
+  }
 
   doSubmit = async () => {
     const data = this.state.data;

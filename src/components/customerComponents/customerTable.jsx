@@ -20,12 +20,16 @@ class CutomerTable extends Component {
   ];
   render() {
     let { customers, sortColumn, onSort } = this.props;
+    const link = "/customers";
+    const itemPath = "name";
     return (
       <Table
         columns={this.columns}
         sortColumn={sortColumn}
         items={customers}
         onSort={onSort}
+        link={link}
+        itemPath={itemPath}
       />
     );
   }

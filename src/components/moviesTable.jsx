@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import Table from "./common/table";
 import Like from "./common/like";
 import { getCurrentUser } from "./services/userService";
+import { Link } from "react-router-dom";
 
 class MoviesTable extends Component {
   columns = [
     { label: "Title", path: "title", clicked: false },
     { label: "Genre", path: "genre.name", clicked: false },
     { label: "Stock", path: "numberInStock", clicked: false },
-    { label: "Rate", path: "dailyRentalRate", clicked: false },
+    { label: "Rental Rate", path: "dailyRentalRate", clicked: false },
   ];
 
   constructor() {
@@ -38,13 +39,16 @@ class MoviesTable extends Component {
 
   render() {
     let { movies, sortColumn, onSort } = this.props;
-
+    const link = "/movies";
+    const itemPath = "title";
     return (
       <Table
         columns={this.columns}
         sortColumn={sortColumn}
         items={movies}
         onSort={onSort}
+        link={link}
+        itemPath={itemPath}
       />
     );
   }

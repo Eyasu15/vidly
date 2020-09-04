@@ -12,7 +12,7 @@ class Customers extends Component {
   state = {
     customers: [],
     search: { active: false, value: "" },
-    sortColumn: { path: "title", order: "asc" },
+    sortColumn: { path: "name", order: "asc" },
     pageSize: 5,
     activePage: 1,
   };
@@ -21,7 +21,9 @@ class Customers extends Component {
     const { data: customers } = await getAllCustomers();
     this.setState({ customers });
   }
-
+  handleSort = (sortColumn) => {
+    this.setState({ sortColumn });
+  };
   handleDelete = async (id) => {
     const originalCustomers = [...this.state.customers];
     const customers = originalCustomers.filter((c) => c.id !== id);

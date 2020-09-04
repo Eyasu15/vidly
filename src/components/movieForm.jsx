@@ -12,6 +12,9 @@ class MovieForm extends Form {
       genreId: "",
       numberInStock: "",
       dailyRentalRate: "",
+      rate: "",
+      info: "",
+      description: "",
     },
     genres: [],
     errors: {},
@@ -31,6 +34,9 @@ class MovieForm extends Form {
       .min(0)
       .max(10)
       .label("Daily Rental Rate"),
+    rate: Joi.string().required().label("Rate"),
+    info: Joi.string().required().label("Info"),
+    description: Joi.string().required().label("Description"),
   };
 
   async componentDidMount() {
@@ -53,17 +59,29 @@ class MovieForm extends Form {
   }
 
   mapToViewModel(movie) {
+    console.log(movie);
     return {
       id: movie.id,
       title: movie.title,
       genreId: movie.genre.id,
       numberInStock: movie.numberInStock,
       dailyRentalRate: movie.dailyRentalRate,
+      rate: movie.rate.rate,
+      info: movie.rate.info,
+      description: movie.rating.description,
     };
   }
 
   doSubmit = async () => {
-    const { title, genreId, numberInStock, dailyRentalRate } = {
+    const {
+      title,
+      genreId,
+      numberInStock,
+      dailyRentalRate,
+      rate,
+      info,
+      description,
+    } = {
       ...this.state.data,
     };
 
@@ -75,6 +93,11 @@ class MovieForm extends Form {
       genre,
       numberInStock,
       dailyRentalRate,
+      rate: {
+        rate,
+        info,
+        description,
+      },
     };
     if (this.state.id) movie.id = this.state.id;
     console.log(movie);
@@ -100,7 +123,10 @@ class MovieForm extends Form {
           {this.renderInput("title", "Title")}
           {this.renderSelect("genreId", "Genre", this.state.genres)}
           {this.renderInput("numberInStock", "Number in Stock", "number")}
-          {this.renderInput("dailyRentalRate", "Rate")}
+          {this.renderInput("dailyRentalRate", "Rental Rate")}
+          {this.renderInput("rate", "Rate")}
+          {this.renderInput("info", "Info")}
+          {this.renderInput("description", "Description")}
           {this.renderButton("Save")}
         </form>
       </div>

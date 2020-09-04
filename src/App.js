@@ -38,7 +38,8 @@ class App extends Component {
         <Navbar user={user} />
         <main className="container">
           <Switch>
-            <Route path="/login" exact component={Login} />
+            {!user && <Route path="/login" exact component={Login} />}
+            {user && <Redirect from="/login" to="/movies" exact />}
             <Route path="/logout" exact component={Logout} />
             <Route path="/register" exact component={Register} />
             <Route
