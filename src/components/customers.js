@@ -8,13 +8,15 @@ import { toast } from "react-toastify";
 import _ from "lodash";
 import { paginate } from "./utils/paginate";
 import Movies from "./movies";
+import Members from "./customerComponents/members";
 
 class Customers extends Component {
   state = {
     customers: [],
     search: { active: false, value: "" },
     sortColumn: { path: "name", order: "asc" },
-    member: ["Gold Members", "All"],
+    members: [{ name: "Gold Members" }, { name: "All" }],
+    activeMember: "All",
     pageSize: 5,
     activePage: 1,
   };
@@ -23,6 +25,10 @@ class Customers extends Component {
     const { data: customers } = await getAllCustomers();
     this.setState({ customers });
   }
+
+  handleMemberChange = (member) => {
+    this.setState({ activeMember: member });
+  };
 
   handleDelete = async (id) => {
     const originalCustomers = [...this.state.customers];
@@ -61,44 +67,65 @@ class Customers extends Component {
       customers: allCustomers,
       sortColumn,
       search,
+      activeMember,
     } = this.state;
 
     let filtered;
-    if (!search.active) filtered = allCustomers;
+    if (!search.active)
+      filtered =
+        activeMember !== "All"
+          ? allCustomers.filter((c) => c.isGold === true)
+          : allCustomers;
     else
       filtered = allCustomers.filter((customer) =>
         customer.name.toLowerCase().includes(search.value)
       );
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
     const customers = paginate(sorted, pageSize, activePage);
-    return { totalCount: filtered.length, data: customers };
+    return { totalCount: filtered.length, customers };
   };
 
   render() {
-    const { customers, search, sortColumn, pageSize, activePage } = this.state;
-    const totalCount = customers.length;
+    const {
+      search,
+      sortColumn,
+      pageSize,
+      activePage,
+      members,
+      activeMember,
+    } = this.state;
+    const { totalCount, customers } = this.getPagedData();
     return (
-      <div className="col">
-        {customers && (
-          <Link to="/customers/new" className="btn btn-primary mb-3">
-            New Customer
-          </Link>
-        )}
-        <Search onChange={this.handleSearch} data={search.value} />
-        <p>Showing {totalCount} customers</p>
-        <CustomerTable
-          customers={customers}
-          sortColumn={sortColumn}
-          onLike={this.handleLike}
-          onDelete={this.handleDelete}
-          onSort={this.handleSort}
-        />
-        <Pagination
-          itemsCount={totalCount}
-          pageSize={pageSize}
-          activePage={activePage}
-          onPageChange={this.handlePageChange}
-        />
+      <div className="row">
+        <div className="col-3">
+          <Members
+            members={members}
+            activeMember={activeMember}
+            onMemberChange={this.handleMemberChange}
+          />
+        </div>
+        <div className="col">
+          {customers && (
+            <Link to="/customers/new" className="btn btn-primary mb-3">
+              New Customer
+            </Link>
+          )}
+          <Search onChange={this.handleSearch} data={search.value} />
+          <p>Showing {totalCount} customers</p>
+          <CustomerTable
+            customers={customers}
+            sortColumn={sortColumn}
+            onLike={this.handleLike}
+            onDelete={this.handleDelete}
+            onSort={this.handleSort}
+          />
+          <Pagination
+            itemsCount={totalCount}
+            pageSize={pageSize}
+            activePage={activePage}
+            onPageChange={this.handlePageChange}
+          />
+        </div>
       </div>
     );
   }
