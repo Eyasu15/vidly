@@ -1,18 +1,20 @@
 import React, { Component } from "react";
-import CustomerForm from "./customerComponents/customerForm";
 import { getAllCustomers, deleteCustomer } from "./services/customerService";
 import { Link } from "react-router-dom";
 import Search from "./common/search";
 import CustomerTable from "./customerComponents/customerTable";
 import Pagination from "./pagination";
 import { toast } from "react-toastify";
-import { getCurrentUser } from "./services/userService";
+import _ from "lodash";
+import { paginate } from "./utils/paginate";
+import Movies from "./movies";
 
 class Customers extends Component {
   state = {
     customers: [],
     search: { active: false, value: "" },
     sortColumn: { path: "name", order: "asc" },
+    member: ["Gold Members", "All"],
     pageSize: 5,
     activePage: 1,
   };
@@ -21,9 +23,7 @@ class Customers extends Component {
     const { data: customers } = await getAllCustomers();
     this.setState({ customers });
   }
-  handleSort = (sortColumn) => {
-    this.setState({ sortColumn });
-  };
+
   handleDelete = async (id) => {
     const originalCustomers = [...this.state.customers];
     const customers = originalCustomers.filter((c) => c.id !== id);
@@ -36,6 +36,42 @@ class Customers extends Component {
       }
     }
     this.setState({ customers });
+  };
+
+  handlePageChange = (pageNumber) => {
+    this.setState({ activePage: pageNumber });
+  };
+
+  handleSort = (sortColumn) => {
+    this.setState({ sortColumn });
+  };
+
+  handleSearch = ({ currentTarget: input }) => {
+    let { search } = this.state;
+    search.active = input.value === "" ? false : true;
+    search.value = input.value;
+
+    this.setState({ search });
+  };
+
+  getPagedData = () => {
+    const {
+      pageSize,
+      activePage,
+      customers: allCustomers,
+      sortColumn,
+      search,
+    } = this.state;
+
+    let filtered;
+    if (!search.active) filtered = allCustomers;
+    else
+      filtered = allCustomers.filter((customer) =>
+        customer.name.toLowerCase().includes(search.value)
+      );
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+    const customers = paginate(sorted, pageSize, activePage);
+    return { totalCount: filtered.length, data: customers };
   };
 
   render() {

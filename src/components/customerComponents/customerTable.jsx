@@ -5,7 +5,6 @@ class CutomerTable extends Component {
   columns = [
     { label: "Name", path: "name", clicked: false },
     { label: "Phone", path: "phone", clicked: false },
-    { label: "Gold Member", path: "isGold", clicked: false },
     {
       key: "delete",
       content: (customer) => (

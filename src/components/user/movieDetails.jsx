@@ -4,7 +4,9 @@ class MovieDetails extends Component {
   render() {
     return (
       <div className="container">
-        <div className=""></div>
+        <div className="form-group">
+          <label htmlFor=""></label>
+        </div>
       </div>
     );
   }

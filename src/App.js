@@ -63,9 +63,8 @@ class App extends Component {
             )}
             {user && user.role === "ROLE_USER" && <div></div>}
             {!user && <Redirect from="/movies/:id" to="/login" />}
-            <Route path="/not-found" exact component={NotFound} />
             <Redirect from="/" exact to="/movies" />
-            <Redirect to="/not-found" />
+            <Route path="/not-found" exact component={NotFound} />
           </Switch>
         </main>
       </React.Fragment>
