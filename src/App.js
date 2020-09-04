@@ -9,7 +9,7 @@ import MovieForm from "./components/movieForm";
 import Login from "./components/login";
 import Logout from "./components/logout";
 import Register from "./components/register";
-import { getCurrentUser } from "./components/services/userService";
+import { getCurrentUser, logout } from "./components/services/userService";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./components/common/protectedRoute";
 import CustomerForm from "./components/customerComponents/customerForm";
@@ -20,7 +20,13 @@ class App extends Component {
 
   componentDidMount() {
     const user = getCurrentUser();
-    this.setState({ user });
+    if (user) {
+      const now = Date.now();
+      const endDate = new Date(user.exp * 1000);
+      const timeElapsed = endDate.getTime() - now;
+      if (timeElapsed < 0) logout();
+      else this.setState({ user });
+    }
   }
 
   render() {

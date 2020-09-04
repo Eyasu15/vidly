@@ -14,10 +14,9 @@ class MoviesTable extends Component {
   constructor() {
     super();
     const user = getCurrentUser();
-    if (user) {
+    if (user && user.role === "ROLE_ADMIN")
       this.columns.push(this.deleteColumn);
-      this.columns.push(this.likeColumn);
-    }
+    if (user) this.columns.push(this.likeColumn);
   }
 
   likeColumn = {
