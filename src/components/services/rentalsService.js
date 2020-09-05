@@ -19,9 +19,14 @@ function addRental(rental) {
   return http.post(rentalUrl, rental);
 }
 
+function returnRental(rental) {
+  return http.put(rentalUrl, rental);
+}
+
 export default {
   getAllRentals,
   addRental,
   deleteRental,
   getUserRentals,
+  returnRental,
 };

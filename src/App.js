@@ -14,6 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./components/common/protectedRoute";
 import CustomerForm from "./components/customerComponents/customerForm";
 import Rentals from "./components/rentalComponent/rentals";
+import RentalForm from "./components/rentalComponent/rentalForm";
 
 class App extends Component {
   state = {};
@@ -59,6 +60,8 @@ class App extends Component {
                 <Route path="/movies/:id" component={MovieForm} />
                 <Route path="/customers" exact component={Customers} />
                 <Route path="/customers/:id" exact component={CustomerForm} />
+                <Route path="/rentals" exact component={Rentals} />
+                <Route path="/rentals:id" exact component={RentalForm} />
               </React.Fragment>
             )}
             {user && user.role === "ROLE_USER" && <div></div>}

@@ -7,6 +7,7 @@ class RentalTable extends Component {
     { label: "Customer", path: "customer", clicked: false },
     { label: "Date Out", path: "dateOut", clicked: false },
     { label: "Return Date", path: "dateReturned", clicked: false },
+    { label: "Status", path: "status", clicked: false },
     { label: "Total Fees", path: "rentalFee", clicked: false },
     {
       key: "Return",
