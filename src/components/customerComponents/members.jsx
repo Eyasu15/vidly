@@ -12,7 +12,7 @@ const Members = (props) => {
               ? "list-group-item list-group-item-action active"
               : "list-group-item list-group-item-action"
           }
-          onClick={() => onMemberChange(m)}
+          onClick={() => onMemberChange(m.name)}
         >
           {m.name}
         </a>

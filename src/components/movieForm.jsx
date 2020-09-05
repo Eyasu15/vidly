@@ -3,6 +3,7 @@ import Form from "./common/form";
 import Joi from "joi-browser";
 import { getGenres } from "./services/genreService";
 import { getOneMovie, saveMovie } from "./services/movieService";
+import { toast } from "react-toastify";
 
 class MovieForm extends Form {
   state = {
@@ -27,7 +28,7 @@ class MovieForm extends Form {
     numberInStock: Joi.number()
       .required()
       .min(0)
-      .max(100)
+      .max(250)
       .label("Number in Stock"),
     dailyRentalRate: Joi.number()
       .required()
@@ -48,28 +49,33 @@ class MovieForm extends Form {
   async populateMovie() {
     const movieId = this.props.match.params.id;
     if (movieId === "new") return;
-
     try {
       const { data: movie } = await getOneMovie(movieId);
-      this.setState({ id: movieId, data: this.mapToViewModel(movie) });
+      console.log(movie);
+      const data = this.mapToViewModel(movie);
+      this.setState({ id: movieId, data });
     } catch (ex) {
       if (ex.response && ex.response.status >= 400)
         this.props.history.replace("/not-found");
     }
+    console.log(this.state.data);
   }
 
   mapToViewModel(movie) {
-    console.log(movie);
-    return {
-      id: movie.id,
-      title: movie.title,
-      genreId: movie.genre.id,
-      numberInStock: movie.numberInStock,
-      dailyRentalRate: movie.dailyRentalRate,
-      rate: movie.rate.rate,
-      info: movie.rate.info,
-      description: movie.rating.description,
+    const { title, genre, numberInStock, dailyRentalRate, rate } = movie;
+    console.log(rate);
+    const data = {
+      title: title,
+      genreId: genre.id,
+      numberInStock: numberInStock,
+      dailyRentalRate: dailyRentalRate,
     };
+    if (rate) {
+      data.rate = rate.rate;
+      data.info = rate.info;
+      data.description = rate.description;
+    }
+    return data;
   }
 
   doSubmit = async () => {
@@ -100,7 +106,6 @@ class MovieForm extends Form {
       },
     };
     if (this.state.id) movie.id = this.state.id;
-    console.log(movie);
     try {
       await saveMovie(movie);
     } catch (ex) {
@@ -109,7 +114,7 @@ class MovieForm extends Form {
         errors.username = ex.response.message;
         this.setState({ errors });
       }
-      alert("something went wrong");
+      toast.info("something went wrong");
     }
 
     this.props.history.push("/movies");
