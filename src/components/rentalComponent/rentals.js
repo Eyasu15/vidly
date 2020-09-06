@@ -80,11 +80,15 @@ class Rentals extends Component {
     if (!search.active)
       filtered =
         activeStatus !== "All"
-          ? allRentals.filter((r) => r.status === activeStatus)
+          ? allRentals.filter(
+              (r) => r.status.toLowerCase() === activeStatus.toLowerCase()
+            )
           : allRentals;
     else
-      filtered = allRentals.filter((r) =>
-        r.movie.name.toLowerCase().includes(search.value)
+      filtered = allRentals.filter(
+        (r) =>
+          r.movieTitle.toLowerCase().includes(search.value) ||
+          r.customerName.toLowerCase().includes(search.value)
       );
 
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);

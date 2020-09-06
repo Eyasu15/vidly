@@ -1,6 +1,14 @@
 import React, { Component } from "react";
+import Form from "../common/form";
 
-class RentalForm extends Component {
+class RentalForm extends Form {
+  state = {
+    id: "",
+    data: {
+      movie: "",
+      customer: "",
+    },
+  };
   render() {
     return <div>Rental Form</div>;
   }

@@ -61,7 +61,7 @@ class App extends Component {
                 <Route path="/customers" exact component={Customers} />
                 <Route path="/customers/:id" exact component={CustomerForm} />
                 <Route path="/rentals" exact component={Rentals} />
-                <Route path="/rentals:id" exact component={RentalForm} />
+                <Route path="/rentals/:id" exact component={RentalForm} />
               </React.Fragment>
             )}
             {user && user.role === "ROLE_USER" && <div></div>}
