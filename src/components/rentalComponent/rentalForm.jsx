@@ -41,7 +41,7 @@ class RentalForm extends Form {
   }
 
   populateRentalForm = async () => {
-    const rentalId = this.props.match.prarams.id;
+    const rentalId = this.props.match.params.id;
     if (rentalId === "new") return;
     try {
       const { data } = await getOneRental(rentalId);
