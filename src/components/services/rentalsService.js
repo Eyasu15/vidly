@@ -7,8 +7,8 @@ function getAllRentals() {
   return http.get(rentalUrl);
 }
 
-function getUserRentals(userId) {
-  return http.get(rentalUrl, userId);
+function getOneRental(id) {
+  return http.get(rentalUrl + "/" + id, userId);
 }
 
 function deleteRental(id) {
@@ -23,10 +23,4 @@ function returnRental(rental) {
   return http.put(rentalUrl, rental);
 }
 
-export default {
-  getAllRentals,
-  addRental,
-  deleteRental,
-  getUserRentals,
-  returnRental,
-};
+export { getAllRentals, addRental, deleteRental, getOneRental, returnRental };
