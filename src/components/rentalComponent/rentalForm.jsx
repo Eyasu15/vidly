@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import Form from "../common/form";
 import { Joi } from "joi-browser";
-import { getOneRental, addRental } from "../services/rentalsService";
+import {
+  getOneRental,
+  addRental,
+  getMoviesDTO,
+} from "../services/rentalsService";
 import { toast } from "react-toastify";
 
 class RentalForm extends Form {
@@ -15,21 +19,25 @@ class RentalForm extends Form {
       status: "",
       rentalFee: "",
     },
+    movies: [],
     errors: {},
   };
 
-  schema = {
-    id: Joi.number(),
-    movie: Joi.number().required,
-    customer: Joi.number().required,
-    dateOut: Joi.date().required,
-    dateReturned: Joi.date(),
-    status: Joi.string().required(),
-    rentalFee: Joi.number(),
-  };
+  // schema = {
+  //   id: Joi.number(),
+  //   movie: Joi.number().required,
+  //   customer: Joi.number().required,
+  //   dateOut: Joi.date().required,
+  //   dateReturned: Joi.date(),
+  //   status: Joi.string().required(),
+  //   rentalFee: Joi.number(),
+  // };
 
-  componentDidMount() {
-    this.populateRentalForm();
+  async componentDidMount() {
+    const { data: movies } = await getMoviesDTO();
+    this.setState({ movies });
+    console.log(movies);
+    await this.populateRentalForm();
   }
 
   populateRentalForm = async () => {
@@ -58,7 +66,15 @@ class RentalForm extends Form {
   };
 
   render() {
-    return <div>Rental Form</div>;
+    const { movies } = this.state;
+    return (
+      <div>
+        <h1>Rental Form</h1>
+        <form onSubmit={this.handleSubmit}>
+          {this.renderSelect("movieTitle", "Movie", movies)}
+        </form>
+      </div>
+    );
   }
 }
 

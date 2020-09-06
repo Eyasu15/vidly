@@ -8,7 +8,7 @@ function getAllRentals() {
 }
 
 function getOneRental(id) {
-  return http.get(rentalUrl + "/" + id, userId);
+  return http.get(rentalUrl + "/" + id);
 }
 
 function deleteRental(id) {
@@ -19,8 +19,19 @@ function addRental(rental) {
   return http.post(rentalUrl, rental);
 }
 
+function getMoviesDTO() {
+  return http.get(rentalUrl + "/moviesDTO");
+}
+
 function returnRental(rental) {
   return http.put(rentalUrl, rental);
 }
 
-export { getAllRentals, addRental, deleteRental, getOneRental, returnRental };
+export {
+  getAllRentals,
+  addRental,
+  getMoviesDTO,
+  deleteRental,
+  getOneRental,
+  returnRental,
+};

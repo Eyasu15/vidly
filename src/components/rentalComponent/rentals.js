@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import rentalsService from "../services/rentalsService";
+import { returnRental, getAllRentals } from "../services/rentalsService";
 import { toast } from "react-toastify";
 import Status from "./status";
 import RentalTable from "./rentalTable";
@@ -26,7 +26,7 @@ class Rentals extends Component {
   };
 
   async componentDidMount() {
-    const { data: rentals } = await rentalsService.getAllRentals();
+    const { data: rentals } = await getAllRentals();
     this.setState({ rentals });
   }
   handleStatusChange = (status) => {
@@ -40,7 +40,7 @@ class Rentals extends Component {
     });
 
     try {
-      await rentalsService.returnRental(rental);
+      await returnRental(rental);
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         toast.error(ex.response.message);
