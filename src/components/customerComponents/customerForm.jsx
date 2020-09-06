@@ -38,7 +38,6 @@ class CustomerForm extends Form {
     try {
       const { data } = await getOneCustomer(customerId);
       this.setState({ id: customerId, data });
-      console.log(data);
     } catch (ex) {
       toast.error(ex.response.message);
     }
