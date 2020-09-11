@@ -1,0 +1,89 @@
+To use the Form component built:
+
+1. Extend the Form
+
+	class MyForm extends Form 
+  
+2. Create a state with data, and errors.
+
+	state = {
+	    data: {
+	      field1: "",
+	      field2: "",
+	      field3: "",
+	    },
+	    errors: {},
+	  };
+
+3. Create Schema for Joi validation
+
+  schema = {
+	field1: Joi.string().required().label("Field1"),
+    field2: Joi.required().label("Field2"),
+    field3: Joi.number()
+		      .required()
+		      .min(0)
+		      .max(250)
+		      .label("Field3"),
+
+  };
+
+4. Create a doSubmit function:
+	
+	doSubmit = async () => {
+	    const {
+	      title,
+	      genreId,
+	      numberInStock,
+	      dailyRentalRate,
+	      rate,
+	      info,
+	      description,
+	    } = {...this.state.data,};
+
+    const genreArray = this.state.genres.filter((g) => g.id === 1);
+    const genre = { id: genreId, name: genreArray.name };
+
+    let movie = {
+      title,
+      genre,
+      numberInStock,
+      dailyRentalRate,
+      rate: {
+        rate,
+        info,
+        description,
+      },
+    };
+    if (this.state.id) movie.id = this.state.id;
+    try {
+      await saveMovie(movie);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.username = ex.response.message;
+        this.setState({ errors });
+      }
+      toast.info("something went wrong");
+    }
+
+    this.props.history.push("/movies");
+  };
+
+5. Render
+
+  render() {
+    return (
+      <div>
+        <h1>Movie Form</h1>
+        <form onSubmit={this.handleSubmit}>
+          {this.renderInput("field1", "Field1")}
+          {this.renderSelect("field2", "Field2", [options])}
+          {this.renderInput("field3", "Field3", "type")}
+        </form>
+      </div>
+    );
+  }
+}
+
+export default MyForm;

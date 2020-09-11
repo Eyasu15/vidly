@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Form from "../common/form";
-import { Joi } from "joi-browser";
+import Joi from "joi-browser";
 import {
   getOneRental,
   addRental,
@@ -23,15 +23,15 @@ class RentalForm extends Form {
     errors: {},
   };
 
-  // schema = {
-  //   id: Joi.number(),
-  //   movie: Joi.number().required,
-  //   customer: Joi.number().required,
-  //   dateOut: Joi.date().required,
-  //   dateReturned: Joi.date(),
-  //   status: Joi.string().required(),
-  //   rentalFee: Joi.number(),
-  // };
+  schema = {
+    id: Joi.number(),
+    movie: Joi.number().required,
+    customer: Joi.number().required,
+    dateOut: Joi.date().required,
+    dateReturned: Joi.date(),
+    status: Joi.string().required(),
+    rentalFee: Joi.number(),
+  };
 
   async componentDidMount() {
     const { data: movies } = await getMoviesDTO();
@@ -71,7 +71,7 @@ class RentalForm extends Form {
       <div>
         <h1>Rental Form</h1>
         <form onSubmit={this.handleSubmit}>
-          {this.renderSelect("movieTitle", "Movie", movies)}
+          {this.renderSelect("movie", "Movie", movies)}
         </form>
       </div>
     );
