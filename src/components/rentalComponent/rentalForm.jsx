@@ -5,6 +5,7 @@ import {
   getOneRental,
   addRental,
   getMoviesDTO,
+  getCustomersDTO,
 } from "../services/rentalsService";
 import { toast } from "react-toastify";
 
@@ -36,7 +37,8 @@ class RentalForm extends Form {
 
   async componentDidMount() {
     const { data: movies } = await getMoviesDTO();
-    this.setState({ movies });
+    const { data: customers } = await getCustomersDTO();
+    this.setState({ movies, customers });
     console.log(movies);
     await this.populateRentalForm();
   }
@@ -73,7 +75,7 @@ class RentalForm extends Form {
         <h1>Rental Form</h1>
         <form onSubmit={this.handleSubmit}>
           {this.renderSelect("movie", "Movie", movies)}
-          {this.renderSelect("customer", "Customer")}
+          {this.renderSelect("customer", "Customer", customers)}
         </form>
       </div>
     );
