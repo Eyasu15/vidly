@@ -20,6 +20,7 @@ class RentalForm extends Form {
       rentalFee: "",
     },
     movies: [],
+    customers: [],
     errors: {},
   };
 
@@ -66,12 +67,13 @@ class RentalForm extends Form {
   };
 
   render() {
-    const { movies } = this.state;
+    const { movies, customers } = this.state;
     return (
       <div>
         <h1>Rental Form</h1>
         <form onSubmit={this.handleSubmit}>
           {this.renderSelect("movie", "Movie", movies)}
+          {this.renderSelect("customer", "Customer")}
         </form>
       </div>
     );
