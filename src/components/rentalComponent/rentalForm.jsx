@@ -25,8 +25,8 @@ class RentalForm extends Form {
 
   schema = {
     id: Joi.number(),
-    movie: Joi.number().required,
-    customer: Joi.number().required,
+    movie: Joi.string().required,
+    customer: Joi.string().required,
     dateOut: Joi.date().required,
     dateReturned: Joi.date(),
     status: Joi.string().required(),
