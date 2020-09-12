@@ -35,6 +35,7 @@ export {
   getAllRentals,
   addRental,
   getMoviesDTO,
+  getCustomersDTO,
   deleteRental,
   getOneRental,
   returnRental,
