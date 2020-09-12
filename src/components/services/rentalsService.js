@@ -23,6 +23,10 @@ function getMoviesDTO() {
   return http.get(rentalUrl + "/moviesDTO");
 }
 
+function getCustomersDTO() {
+  return http.get(rentalUrl + "/customersDTO");
+}
+
 function returnRental(rental) {
   return http.put(rentalUrl, rental);
 }
