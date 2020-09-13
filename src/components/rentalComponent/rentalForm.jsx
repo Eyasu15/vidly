@@ -77,6 +77,7 @@ class RentalForm extends Form {
           {this.renderSelect("movie", "Movie", movies)}
           {this.renderSelect("customer", "Customer", customers)}
           {this.renderInput("dateOut", "Date Out", "date")}
+          {this.renderInput("dateReturned", "Return Date", "date")}
         </form>
       </div>
     );
