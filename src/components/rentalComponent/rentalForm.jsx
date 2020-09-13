@@ -79,6 +79,7 @@ class RentalForm extends Form {
           {this.renderInput("dateOut", "Date Out", "date")}
           {this.renderInput("dateReturned", "Return Date", "date")}
           {this.renderInput("status", "Status")}
+          {this.renderInput("rentalFee", "Fee")}
         </form>
       </div>
     );
