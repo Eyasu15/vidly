@@ -70,6 +70,11 @@ class RentalForm extends Form {
 
   render() {
     const { movies, customers } = this.state;
+    const status = [
+      { name: "RETURNED", id: "RETURNED" },
+      { name: "LATE", id: "LATE" },
+      { name: "RENTED", id: "RENTED" },
+    ];
     return (
       <div>
         <h1>Rental Form</h1>
@@ -78,7 +83,7 @@ class RentalForm extends Form {
           {this.renderSelect("customer", "Customer", customers)}
           {this.renderInput("dateOut", "Date Out", "date")}
           {this.renderInput("dateReturned", "Return Date", "date")}
-          {this.renderInput("status", "Status")}
+          {this.renderSelect("status", "Status", status)}
           {this.renderInput("rentalFee", "Fee")}
           {this.renderButton("Submit")}
         </form>
