@@ -75,6 +75,7 @@ class RentalForm extends Form {
       { name: "LATE", id: "LATE" },
       { name: "RENTED", id: "RENTED" },
     ];
+
     return (
       <div>
         <h1>Rental Form</h1>
